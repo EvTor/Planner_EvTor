@@ -42,7 +42,7 @@ class EventController {
                     return {
                         "user_id": user._id,
                         "accepted": false
-                    }
+                    } || [];
                 });
                 usersSharedId.unshift(
                     {
@@ -50,11 +50,11 @@ class EventController {
                         "accepted": true
                     });
 
-                const eventColor = await Color.findOne({ 'value': color });
+                const eventColor = await Color.findOne({ 'value': color }) || { 'value': "grey" };
 
                 const event = new Event({ user: usersSharedId, startDate, endDate, description, color: eventColor.value });
                 await Event.create(event);
-                return res.json({ message: "Event successfully created. This event can see: ", usersSharedId })
+                return res.json({ message: "Event successfully created", usersSharedId })
             } catch (err) {
                 res.status(400).json({ message: "Post request error" })
             }
@@ -138,7 +138,7 @@ class EventController {
                     return {
                         "user_id": user._id,
                         "accepted": false
-                    }
+                    } || [];
                 });
                 usersSharedId.unshift(
                     {
@@ -146,10 +146,10 @@ class EventController {
                         "accepted": true
                     });
 
-                const eventColor = await Color.findOne({ 'value': color });
+                const eventColor = await Color.findOne({ 'value': color }) || { 'value': "grey" };
                 const event = await Event.findByIdAndUpdate(req.params.id, { user: usersSharedId, startDate, endDate, description, color: eventColor.value }, { new: true });
 
-                return res.json({ message: "Event successfully updated. This event can see: ", usersSharedId })
+                return res.json({ message: "Event successfully updated ", usersSharedId })
             } catch (err) {
                 res.status(400).json({ message: "Put request error" })
             }
@@ -170,14 +170,34 @@ class EventController {
                 });
 
                 await Event.findByIdAndUpdate(req.params.id, { user }, { new: true });
-                return res.json({ message: "Event successfully accepted. This event can see: ", user });
+                return res.json({ message: "Event successfully accepted. ", user });
             } catch (err) {
                 res.status(400).json({ message: "Accept event error. Put request error" })
             }
         }
-
     ];
 
+    rejectEvent = [
+        //Registration check
+        accessForRegistered(),
+
+        async (req, res) => {
+            try {
+                const userID = req.user.id;
+                const { user } = await Event.findById(req.params.id);
+
+                user.forEach((userEvent, index) => {
+                    if (userEvent.user_id == userID) {
+                        user.splice(index, 1);
+                    }
+                })
+                await Event.findByIdAndUpdate(req.params.id, { user }, { new: true });
+                return res.json({ message: "Event rejected. ", user });
+            } catch (err) {
+                res.status(400).json({ message: "Reject event error. Put request error" })
+            }
+        }
+    ];
 
     deleteEvent = [
         //Registration check
@@ -193,9 +213,9 @@ class EventController {
                     return res.status(400).json({ message: "You do not have a permission" });
                 };
 
-                const event = await Event.findByIdAndDelete(req.params.id);
-                if (event) {
-                    return res.json({ message: "Event successfully deleted", event })
+                const eventDelete = await Event.findByIdAndDelete(req.params.id);
+                if (eventDelete) {
+                    return res.json({ message: "Event successfully deleted", eventDelete })
                 } else {
                     return res.status(404).json({ message: "Event was not found" })
                 }

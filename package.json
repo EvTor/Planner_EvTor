@@ -1,0 +1,22 @@
+{
+  "name": "planner_evtor",
+  "version": "1.0.0",
+  "description": "web app planner_evtor",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"cd Server && node index.js\" \"cd client && npm start\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EvTor/Planner_EvTor.git"
+  },
+  "author": "Evgeniy Toropitsyn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EvTor/Planner_EvTor/issues"
+  },
+  "homepage": "https://github.com/EvTor/Planner_EvTor#readme",
+  "dependencies": {
+    "concurrently": "^8.0.1"
+  }
+}

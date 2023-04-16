@@ -32,6 +32,7 @@ router.post('/events', eventController.createNewEvent);
 router.put('/events/:id', eventController.updateCertainEvent);
 
 router.put('/events/accept/:id', eventController.acceptEvent);  //Accept event from other user
+router.put('/events/reject/:id', eventController.rejectEvent);  //Reject event from other user
 //Delete requests
 router.delete('/events/:id', eventController.deleteEvent);
 

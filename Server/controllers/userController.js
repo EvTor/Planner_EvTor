@@ -178,6 +178,7 @@ class UserController {
                 const namesIds = userList.map((user) => {
                     return {
                         "id": user.id,
+                        "email": user.email,
                         "firstName": user.firstName,
                         "lastName": user.lastName
                     }
@@ -271,7 +272,7 @@ class UserController {
                 const deleteUser = await User.findByIdAndDelete(userToken.id);
 
                 if (!deleteUser) {
-                    return res.status(400).json({ message: "User with was not found" })
+                    return res.status(400).json({ message: "User was not found" })
                 }
                 else
                     return res.json({ message: "User was deleted", deleteUser })

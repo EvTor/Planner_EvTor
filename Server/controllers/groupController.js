@@ -26,13 +26,13 @@ class GroupController {
                 const userCreator = req.user.id;
                 const { user, title } = req.body;
 
-                //Add users who will see the event
+                //Add users who will see the group
                 const usersShared = await User.find({ '_id': { $in: user } });
                 const usersSharedId = usersShared.map((user) => {
                     return {
                         "user_id": user._id,
                         "accepted": false
-                    }
+                    } || [];
                 });
                 usersSharedId.unshift(
                     {
@@ -42,7 +42,7 @@ class GroupController {
 
                 const group = new Group({ user: usersSharedId, title });
                 await Group.create(group);
-                return res.json({ message: "Group successfully created. Members of this group: ", usersSharedId })
+                return res.json({ message: "Group successfully created", usersSharedId })
             } catch (err) {
                 res.status(400).json({ message: "Post request error" })
             }
@@ -112,7 +112,7 @@ class GroupController {
                 const { user, title } = req.body;
                 const usersShared = await User.find({ '_id': { $in: user } });
 
-                //Add users who will see the event
+                //Add users who will see the group
                 const usersSharedId = usersShared.map((user) => {
                     return {
                         "user_id": user._id,
@@ -127,7 +127,7 @@ class GroupController {
 
                 const group = await Group.findByIdAndUpdate(req.params.id, { user: usersSharedId, title }, { new: true });
 
-                return res.json({ message: "Group successfully updated. Members of this group: ", usersSharedId })
+                return res.json({ message: "Group successfully updated", usersSharedId })
             } catch (err) {
                 res.status(400).json({ message: "Put request error" })
             }
