@@ -1,0 +1,13 @@
+.myInput {
+    width: 100%;
+    max-width: 300px;
+    padding: 5px 15px;
+    margin: 0.2rem 0;
+    border: 1px solid #0057FF;
+    border-radius: 2rem;
+}
+
+
+.myInput:focus {
+    box-shadow: 2px 1px 10px #0057FF;
+}

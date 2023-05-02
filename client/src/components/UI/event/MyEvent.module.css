@@ -1,0 +1,39 @@
+.eventDiv {
+    border-radius: 1rem;
+    padding: 0.1rem 0.5rem;
+    margin: 0.1rem;
+    width: 100%;
+    height: 21%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.time {
+    font-size: 0.5rem;
+    line-height: 0.6rem;
+    font-weight: bold;
+    height: 40%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.description {
+    font-size: 0.7rem;
+    line-height: 0.8rem;
+    font-weight: bold;
+    width: 100%;
+    height: 60%;
+    text-align: center;
+    overflow-y: auto;
+
+
+}
+
+.description::-webkit-scrollbar {
+    display: none;
+}

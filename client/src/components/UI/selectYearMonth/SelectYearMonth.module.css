@@ -1,0 +1,32 @@
+.yearMonthPanel {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.yearMonth {
+    border: none;
+    outline: none;
+    font-weight: bold;
+    font-size: 2.5rem;
+    color: #0057FF;
+    text-align: center;
+    margin: 0 0.8rem;
+    text-overflow: '';
+    appearance: none;
+    cursor: pointer;
+}
+
+.yearMonth option {
+    font-size: 1.5rem;
+    color: #0057FF;
+}
+
+.yearMonth:hover {
+    color: #3f3f3f;
+}
+
+.yearMonth:active {
+    text-decoration: underline;
+}
