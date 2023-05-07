@@ -56,8 +56,8 @@ const SelectYearMonth = ({ specYearMonth }) => {
                     value={year}
                     onChange={event => setYear(parseInt(event.target.value))}
                 >
-                    {fifteenYears.map(e =>
-                        <option value={e}>{e}</option>
+                    {fifteenYears.map((value, index) =>
+                        <option key={`${index}year`} value={value}>{value}</option>
                     )}
                 </select>
                 <select
@@ -66,8 +66,8 @@ const SelectYearMonth = ({ specYearMonth }) => {
                     onChange={event => setMonth(event.target.value)}
                 >
 
-                    {monthNames.map(e =>
-                        <option value={e}>{e}</option>
+                    {monthNames.map((value, index) =>
+                        <option key={`${index}month`} value={value}>{value}</option>
                     )}
                 </select>
 

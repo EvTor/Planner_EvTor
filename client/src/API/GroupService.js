@@ -1,9 +1,9 @@
 import { fetchData } from "./fetchData";
 
-class EventService {
+class GroupService {
 
     static createNewEvent = async (reqBody) => {
-        const url = "/events";
+        const url = "/groups";
         const requestMethod = "POST";
         const needAccess = true;
         const { message, usersSharedId, errors } = await fetchData(url, requestMethod, reqBody, needAccess);
@@ -17,8 +17,8 @@ class EventService {
     };
 
 
-    static showMyEvents = async () => {
-        const url = "/events";
+    static showMyGroups = async () => {
+        const url = "/groups";
         const requestMethod = "GET";
         const reqBody = false;
         const needAccess = true;
@@ -29,8 +29,8 @@ class EventService {
         return data;
     };
 
-    static showCertainEvent = async (id) => {
-        const url = `/events/${id}`;
+    static showCertainGroup = async (id) => {
+        const url = `/groups/${id}`;
         const requestMethod = "GET";
         const reqBody = false;
         const needAccess = true;
@@ -41,8 +41,8 @@ class EventService {
         return data;
     };
 
-    static updateCertainEvent = async (id, reqBody) => {
-        const url = `/events/${id}`;
+    static updateCertainGroup = async (id, reqBody) => {
+        const url = `/groups/${id}`;
         const requestMethod = "PUT";
         const needAccess = true;
         const { message, usersSharedId, errors } = await fetchData(url, requestMethod, reqBody, needAccess);
@@ -55,8 +55,8 @@ class EventService {
         else { return message };
     };
 
-    static acceptEvent = async (id) => {
-        const url = `/events/accept/${id}`;
+    static acceptGroup = async (id) => {
+        const url = `/groups/accept/${id}`;
         const requestMethod = "PUT";
         const reqBody = false;
         const needAccess = true;
@@ -67,8 +67,8 @@ class EventService {
         else { return { message, user } };
     };
 
-    static rejectEvent = async (id) => {
-        const url = `/events/reject/${id}`;
+    static rejectGroup = async (id) => {
+        const url = `/groups/reject/${id}`;
         const requestMethod = "PUT";
         const reqBody = false;
         const needAccess = true;
@@ -79,17 +79,17 @@ class EventService {
         else { return message };
     };
 
-    static deleteEvent = async (id) => {
-        const url = `/events/${id}`;
+    static deleteGroup = async (id) => {
+        const url = `/groups/${id}`;
         const requestMethod = "DELETE";
         const reqBody = false;
         const needAccess = true;
-        const { message, eventDelete } = await fetchData(url, requestMethod, reqBody, needAccess);
-        if (!eventDelete) {
+        const { message, groupDelete } = await fetchData(url, requestMethod, reqBody, needAccess);
+        if (!groupDelete) {
             return message
         }
         else { return message };
     };
 }
 
-export default EventService;
+export default GroupService;

@@ -44,3 +44,9 @@
 .divMarkCurrentDay {
     background-color: #CFF4B3;
 }
+
+.divMarkActiveDay {
+    border: 2px solid #0057FF;
+    padding: 1px;
+    background-color: #DEE9FF;
+}

@@ -1,12 +1,8 @@
 import React, { useState } from "react";
-import MyCard from "../UI/card/MyCard";
+import MyCard from "../../UI/card/MyCard";
 import classes from "./Calendar.module.css"
-
-import Loader from "../UI/Loader/Loader";
-import SelectYearMonth from "../UI/selectYearMonth/SelectYearMonth";
-const Calendar = () => {
-
-
+import SelectYearMonth from "../../UI/selectYearMonth/SelectYearMonth";
+const Calendar = ({ events, clickedDay }) => {
     const specYearMonth = (selectedYear, selectedMonth) => {
 
         const days = new Date(selectedYear, selectedMonth + 1, 0).getDate();
@@ -23,12 +19,12 @@ const Calendar = () => {
 
     const weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-    const exactDate = (dayOrder) => {
+    const exactDate = (dayInSelectedMonth) => {
         let currentMonth = month.selectedMonth + 1;
         if (currentMonth < 10) {
             currentMonth = 0 + currentMonth.toString()
         }
-        let currentDay = dayOrder;
+        let currentDay = dayInSelectedMonth;
         if (currentDay < 10) {
             currentDay = 0 + currentDay.toString()
         }
@@ -42,23 +38,29 @@ const Calendar = () => {
         return currentDate.getDay() + 1;
     };
 
+    const currentDayEvents = (dayInSelectedMonth) => {
+        const arrayOfDayEvents = events.filter(event => {
+            const certainEventStart = event.startDate.slice(0, 10);
+            if (certainEventStart === exactDate(dayInSelectedMonth))
+                return event
+        });
+        return arrayOfDayEvents
+    };
+
 
     return (
+
         <div className={classes.calendarDiv}>
             <SelectYearMonth specYearMonth={specYearMonth} />
-
-
-
             <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "0.1rem" }}>
-                {weekDays.map(e =>
-                    <div style={{ textAlign: "center" }}><h4>{e}</h4></div>
+                {weekDays.map((value, index) =>
+                    <div key={index} style={{ textAlign: "center" }}><h4>{value}</h4></div>
                 )}
                 {daysMonth.map(e =>
-                    <MyCard id={exactDate(e)} children={(e)} style={{ gridColumnStart: dayWeek(() => exactDate(e)) }} />
+                    <MyCard key={exactDate(e)} clickedDay={clickedDay} currentDayEvents={currentDayEvents(e)} id={exactDate(e)} dayNumber={(e)} style={{ gridColumnStart: dayWeek(() => exactDate(e)) }} />
                 )}
             </div>
-
-            <Loader />
-        </div>)
+        </div>
+    )
 };
 export default Calendar;

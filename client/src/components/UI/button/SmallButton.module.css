@@ -1,0 +1,21 @@
+.myBtn {
+    max-height: 4rem;
+    min-width: 10rem;
+    padding: 0.5rem 1rem;
+    color: #4E4E4E;
+    font-size: 1.5rem;
+    font-weight: 500;
+    background: #ECECEC;
+    border-radius: 2rem;
+    box-shadow: 0px 1px 10px #0057FF;
+}
+
+.myBtn:hover {
+    color: white;
+    border: 2px solid #414141;
+    text-decoration: underline;
+}
+
+.myBtn:active {
+    font-size: 1.3rem;
+}

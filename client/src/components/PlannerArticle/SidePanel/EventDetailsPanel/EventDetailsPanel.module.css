@@ -1,0 +1,22 @@
+.eventPanelDiv {
+    border: solid 0.2rem #0057FF;
+    border-radius: 2rem;
+    background-color: #DEE9FF;
+    height: 35rem;
+
+}
+
+.eventListDiv {
+    width: 100%;
+    height: 28.9rem;
+    overflow-y: scroll;
+    border-radius: 0 0 2rem 2rem;
+}
+
+h4 {
+    text-align: center;
+}
+
+.eventListDiv::-webkit-scrollbar {
+    display: none;
+}

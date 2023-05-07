@@ -1,25 +1,7 @@
-import React, { useState, useEffect } from "react";
-
-import EventService from "../../../API/EventService";
+import React, { useState } from "react";
 import classes from "./MyCard.module.css"
 import MyEvent from "../event/MyEvent";
-const MyCard = ({ id, style, children }) => {
-
-    const [events, setEvents] = useState([{}]);
-    useEffect(() => {
-        getEvents()
-    }, [id]);
-
-    async function getEvents() {
-        const getAll = await EventService.showMyEvents();
-        const dayEvents = getAll.filter(event => {
-            const certainEventStart = event.startDate.slice(0, 10);
-            if (certainEventStart === id)
-                return event
-        });
-        console.log(dayEvents)
-        setEvents(dayEvents)
-    };
+const MyCard = ({ currentDayEvents, id, style, dayNumber, clickedDay }) => {
 
     const markCurrentDay = () => {
         const calendarTime = new Date(id);
@@ -28,21 +10,29 @@ const MyCard = ({ id, style, children }) => {
         const currentDate = `${currentTime.getFullYear().toString()}-${currentTime.getMonth().toString()}-${currentTime.getDate().toString()}`;
         if (calendarDate === currentDate)
             return classes.divMarkCurrentDay
+    };
 
-    }
-
+    const [activeDay, setActiveDay] = useState(false);
+    const markActiveDay = () => {
+        if (activeDay) { return classes.divMarkActiveDay }
+        else { return null }
+    };
+    const dayIdAndEvents = {
+        dayId: id,
+        events: currentDayEvents
+    };
     return (
-        <div style={style} className={`${classes.divMyCard} ${markCurrentDay()}`}>
-            <div className={classes.dayNumber}>{children}</div>
+        <div onClick={() => { clickedDay(dayIdAndEvents); setActiveDay(true) }} className={`${classes.divMyCard} ${markCurrentDay()} ${markActiveDay()}`} style={style}>
+            <div className={classes.dayNumber}>{dayNumber}</div>
 
 
             {
-                events.slice(0, 3).map(e =>
-                    <MyEvent key={e._id} description={e.description} startDate={e.startDate} endDate={e.endDate} color={e.color} />
+                currentDayEvents.slice(0, 3).map(e =>
+                    <MyEvent locationInCard="true" key={`${e._id}card`} exactEvent={e} />
                 )
             }
             {
-                events.length > 3
+                currentDayEvents.length > 3
                     ? <div className={classes.showMore}>Show more</div>
                     : null
             }

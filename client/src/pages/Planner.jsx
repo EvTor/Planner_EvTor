@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
-import Calendar from "../components/Calendar/Calendar";
+import React from "react";
+
+import Header from "../components/Header/Header";
+import PlannerArticle from "../components/PlannerArticle/PlannerArticle";
 
 const Planner = () => {
-
-
     return (
-        <div>
-            <Calendar />
-        </div >
+        <>
+            <Header />
+            <PlannerArticle />
+        </>
     );
 }
 export default Planner;

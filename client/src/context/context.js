@@ -1,3 +1,5 @@
 import React, { createContext } from "react";
 
-export const getEvents = React.createContext();
+
+
+export const EventsContext = React.createContext();

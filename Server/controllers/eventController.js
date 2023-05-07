@@ -225,11 +225,7 @@ class EventController {
             }
         }
     ];
-
-
-
-
-}
+};
 
 const eventController = new EventController();
 export default eventController;
