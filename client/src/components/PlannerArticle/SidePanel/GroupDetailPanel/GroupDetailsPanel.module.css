@@ -5,3 +5,51 @@
     height: 10.5rem;
     margin-bottom: 0.5rem;
 }
+.title{
+    height: 2.5rem;
+}
+h1{
+    line-height: 2rem;
+}
+.buttons{
+    height: 2.5rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0.25rem;
+}
+.groupList{
+height: 4.5rem;
+    overflow-y: scroll;
+    width: 100%;
+    border-radius: 0 0 2rem 2rem;
+
+}
+
+.groupList::-webkit-scrollbar {
+    display: none;
+}
+.groupsDiv{
+    text-align: center;
+    width: 90%;
+    margin: 0.2rem auto;
+    padding: 0.1rem;
+    color: #4E4E4E;
+    font-size: 0.6rem;
+    font-weight: bold;
+    background-color: #ECECEC;
+    border-radius: 2rem;
+    box-shadow: 0px 1px 10px #414141;
+    border: 1px solid #414141;
+    cursor: pointer;
+
+}
+.groupsDiv:hover {
+    color: white;
+    background-color: #4E4E4E;
+}
+
+.groupsDiv:active {
+    font-size: 0.5rem;
+}
+

@@ -48,6 +48,7 @@ const Calendar = ({ events, clickedDay }) => {
     };
 
 
+
     return (
 
         <div className={classes.calendarDiv}>

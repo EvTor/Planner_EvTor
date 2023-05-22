@@ -2,7 +2,7 @@ import { fetchData } from "./fetchData";
 
 class GroupService {
 
-    static createNewEvent = async (reqBody) => {
+    static createNewGroup = async (reqBody) => {
         const url = "/groups";
         const requestMethod = "POST";
         const needAccess = true;

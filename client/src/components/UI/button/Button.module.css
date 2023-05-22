@@ -1,0 +1,78 @@
+.bigBtn {
+    max-height: 4rem;
+    min-width: 10rem;
+    padding: 0.5rem 1rem;
+    color: #0057FF;
+    font-size: 1.5rem;
+    font-weight: 500;
+    background: #DEE9FF;
+    border: 2px solid #0057FF;
+    border-radius: 2rem;
+    box-shadow: 0px 1px 10px #0057FF;
+}
+
+.bigBtn:hover {
+    color: white;
+    background: #0057FF;
+}
+
+.bigBtn:active {
+    font-size: 1.3rem;
+}
+
+.medBtn {
+    max-height: 2.5rem;
+    width: 7.5rem;
+    padding: 0.1rem;
+    color: #0057FF;
+    font-size: 0.9rem;
+    font-weight: 500;
+    background: #DEE9FF;
+    border: 2px solid #0057FF;
+    border-radius: 2rem;
+    box-shadow: 0px 1px 10px #0057FF;
+}
+
+.medBtn:hover {
+    color: white;
+    background: #0057FF;
+}
+
+.medBtn:active {
+    font-size: 0.8rem;
+}
+
+
+.smallBtn {
+    max-height: 2rem;
+    width: 4rem;
+    padding: 0.1rem;
+    color: #4E4E4E;
+    font-size: 0.6rem;
+    font-weight: bold;
+    background-color: #ECECEC;
+    border-radius: 2rem;
+    box-shadow: 0px 1px 10px #414141;
+    border: 1px solid #414141;
+}
+
+.smallBtn:hover {
+    color: white;
+    background-color: #4E4E4E;
+}
+
+.smallBtn:active {
+    font-size: 0.5rem;
+}
+
+.delete{
+    background-color: #ffe5e5;
+    border-color: #e30000;
+    color: #e30000;
+    box-shadow: 0px 1px 10px #e30000;
+}
+
+.delete:hover{
+    color: white;
+    background-color: #e30000;
+}

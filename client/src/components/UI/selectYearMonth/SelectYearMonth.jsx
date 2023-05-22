@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import classes from "./SelectYearMonth.module.css"
-import MyButton from "../button/MyButton";
+import MyButton from "../button/BigButton";
 
 const SelectYearMonth = ({ specYearMonth }) => {
     const currentYear = new Date().getFullYear();

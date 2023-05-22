@@ -1,6 +1,7 @@
 import React from "react";
 import classes from "./MyEvent.module.css";
 import Service from "../../../service/service";
+import SmallButton from "../button/SmallButton";
 const MyEvent = ({ exactEvent, locationInPanel, locationInCard, users }) => {
 
     const showTime = (date) => {
@@ -50,6 +51,10 @@ const MyEvent = ({ exactEvent, locationInPanel, locationInCard, users }) => {
                         <div className={classes.guestList}>
                             Guest list: {guestList.map(user =>
                                 <span key={user.id}>{`${user.firstName} ${user.lastName}, `}</span>)}
+                        </div>
+                        <div className={classes.buttons}>
+                            <SmallButton children="edit"/>
+                            <SmallButton children="delete"/>
                         </div>
                     </div>
                 </>

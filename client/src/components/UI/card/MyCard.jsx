@@ -12,17 +12,12 @@ const MyCard = ({ currentDayEvents, id, style, dayNumber, clickedDay }) => {
             return classes.divMarkCurrentDay
     };
 
-    const [activeDay, setActiveDay] = useState(false);
-    const markActiveDay = () => {
-        if (activeDay) { return classes.divMarkActiveDay }
-        else { return null }
-    };
     const dayIdAndEvents = {
         dayId: id,
         events: currentDayEvents
     };
     return (
-        <div onClick={() => { clickedDay(dayIdAndEvents); setActiveDay(true) }} className={`${classes.divMyCard} ${markCurrentDay()} ${markActiveDay()}`} style={style}>
+        <div onClick={() => { clickedDay(dayIdAndEvents) }} className={`${classes.divMyCard} ${markCurrentDay()} `} style={style}>
             <div className={classes.dayNumber}>{dayNumber}</div>
 
 

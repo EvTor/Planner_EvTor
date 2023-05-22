@@ -1,17 +1,24 @@
-.divLoder {
+.divLoader {
     display: flex;
     justify-content: center;
-    margin: 5rem;
+    align-items: center;
+    margin: auto;
+    max-width: 5rem;
+    max-height: 5rem;
+    height: 100%;
 }
 
 .loader {
-    width: 5rem;
-    height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    aspect-ratio: 1/1;
     border-radius: 50%;
     border-color: #0057FF;
     border-left: solid;
-    border-width: 7px;
-    animation: rotation 2s infinite linear;
+    border-width: 0.2rem;
+    animation: rotation 1.5s infinite linear;
 }
 
 @keyframes rotation {
@@ -32,30 +39,28 @@
 }
 
 .loaderMini {
-    width: 3.5rem;
-    height: 3.5rem;
+    height: 80%;
+    aspect-ratio: 1/1;
     border-radius: 50%;
     border-color: #0057FF;
     border-left: solid;
-    border-width: 7px;
-    animation: rotationMini 2s infinite linear;
-    margin-top: 0.75rem;
-    margin-left: -4.25rem;
+    border-width: 0.2rem;
+    animation: rotationMini 1.5s infinite linear;
 }
 
 @keyframes rotationMini {
     from {
         border-color: #0057FF;
-        transform: rotate(360deg);
+        transform: rotate(0deg);
     }
 
     50% {
         border-color: red;
-        transform: rotate(180deg);
+        transform: rotate(-360deg);
     }
 
     to {
         border-color: #0057FF;
-        transform: rotate(0deg);
+        transform: rotate(-720deg);
     }
 }

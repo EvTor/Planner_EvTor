@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import classes from './RegistrationLoginForm.module.css'
-import MyButton from "../UI/button/MyButton";
-import MyInput from "../UI/input/MyInput";
+import MyButton from "../UI/button/BigButton";
+import MyInput from "../UI/input/Input";
 import UserService from "../../API/UserService";
 import { Link } from "react-router-dom";
 
@@ -51,7 +51,7 @@ const RegistrationLoginForm = ({ registration, login }) => {
                                 onChange={event => setFirstName(event.target.value)}
                             />
                             <MyInput
-                                children="Surame"
+                                children="Surname"
                                 type="text"
                                 value={lastName}
                                 onChange={event => setLastName(event.target.value)}
