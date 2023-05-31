@@ -78,15 +78,39 @@ const PlannerArticle = () => {
     }, []);
 
 
-    const [invites, setInvites] = useState(false);
+    const [invites, setInvites] = useState([]);
     const [invitesForm, setInvitesForm] = useState(false);
     const updateInvitesList = async () => {
         setIsLoading(true);
         setInvites(await EventService.showNotAcceptedEvents());
         setIsLoading(false);
     };
+    const [acceptedInvite, setAcceptedInvite] = useState(false);
+    const [declinedInvite, setDeclinedInvite] = useState(false);
 
+    const clickedAcceptInvite = (exactEvent)=>{
+        setAcceptedInvite(exactEvent);
+    };
+    const clickedDeclineInvite =(exactEvent)=>{
+        setDeclinedInvite(exactEvent);
+    };
+    const [successfullyAcceptedInvite, setSuccessfullyAcceptedInvite] = useState(false);
+    const [successfullyDeclinedInvite, setSuccessfullyDeclinedInvite] = useState(false);
 
+    useEffect(()=>{
+        if(successfullyAcceptedInvite){
+            updateInvitesList();
+            updateEventList();
+            setSuccessfullyAcceptedInvite(false);
+        }
+    },[successfullyAcceptedInvite]);
+
+    useEffect(()=>{
+        if(successfullyDeclinedInvite){
+            updateInvitesList();
+            setSuccessfullyDeclinedInvite(false);
+        }
+    },[successfullyDeclinedInvite]);
 
 
     const [modalActive, setModalActive] = useState(false);
@@ -132,6 +156,7 @@ const PlannerArticle = () => {
                                 ?<GroupForm
                                 modalActive={modalActive}
                                 setModalActive={setModalActive}
+                                setGroupForm={setGroupForm}
                                 users={users}
                                 sendGroupForm={sendGroupForm}
                                 setSendGroupForm={setSendGroupForm}
@@ -144,6 +169,7 @@ const PlannerArticle = () => {
                                 ?<EventForm
                                 modalActive={modalActive}
                                 setModalActive={setModalActive}
+                                setEventForm={setEventForm}
                                 users={users}
                                 groups={groups}
                                 sendEventForm={sendEventForm}
@@ -159,9 +185,17 @@ const PlannerArticle = () => {
                         {invitesForm
                                 ?<InvitesForm
                                 modalActive={modalActive}
-                                setModalActive={setModalActive}
+                                setInvitesForm={setInvitesForm}
                                 invites={invites}
                                 users={users}
+                                acceptedInvite={acceptedInvite}
+                                setAcceptedInvite={setAcceptedInvite}
+                                declinedInvite={declinedInvite}
+                                setDeclinedInvite={setDeclinedInvite}
+                                clickedAcceptInvite={clickedAcceptInvite}
+                                clickedDeclineInvite={clickedDeclineInvite}
+                                setSuccessfullyAcceptedInvite={setSuccessfullyAcceptedInvite}
+                                setSuccessfullyDeclinedInvite={setSuccessfullyDeclinedInvite}
                             />
                         :null}
                     </ModalWindow>

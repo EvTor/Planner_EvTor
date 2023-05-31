@@ -9,7 +9,18 @@ import EventService from "../../API/EventService";
 import Service from "../../service/service";
 import Select from "../UI/input/Select";
 
-const EventForm=({users, groups, modalActive, setModalActive, sendEventForm, setSendEventForm, eventFormDecoration, setEventFormDecoration, eventEdit,setEventEdit, dayEventsDetails})=>{
+const EventForm=({users,
+                     groups,
+                     modalActive,
+                     setEventForm,
+                     setModalActive,
+                     sendEventForm,
+                     setSendEventForm,
+                     eventFormDecoration,
+                     setEventFormDecoration,
+                     eventEdit,
+                     setEventEdit,
+                     dayEventsDetails})=>{
 
     const [email, setEmail] = useState('');
     const [emailForMatching, setEmailForMatching] = useState('');
@@ -75,9 +86,11 @@ const EventForm=({users, groups, modalActive, setModalActive, sendEventForm, set
             setStartTime('');
             setEndTime('');
             setColor('grey');
+            setEventFormDecoration("initial")
             setEventEdit(false);
             setEmptyStartTime(false);
             setEmptyEndTime(false);
+            setEventForm(false);
         }
     }, [modalActive]);
 
@@ -174,7 +187,7 @@ const EventForm=({users, groups, modalActive, setModalActive, sendEventForm, set
                 {console.log(error);
                     setSendEventForm(true);
                     setEventFormDecoration("fail");
-                    setFlashMessageText(error);
+                    setFlashMessageText(error.message);
                     setLoadingRequest(false);
                 })
         };

@@ -7,7 +7,15 @@ import Loader from "../UI/Loader/Loader";
 import SmallButton from "../UI/button/SmallButton";
 import FlashMessage from "../UI/FlashMessage/FlashMessage";
 
-const GroupForm=({users, modalActive, setModalActive, sendGroupForm, setSendGroupForm, groupFormDecoration, setGroupFormDecoration, groupEdit})=>{
+const GroupForm=({users,
+                     modalActive,
+                     setGroupForm,
+                     setModalActive,
+                     sendGroupForm,
+                     setSendGroupForm,
+                     groupFormDecoration,
+                     setGroupFormDecoration,
+                     groupEdit})=>{
 
     const [email, setEmail] = useState('');
     const [emailForMatching, setEmailForMatching] = useState('');
@@ -57,7 +65,9 @@ const GroupForm=({users, modalActive, setModalActive, sendGroupForm, setSendGrou
             setLoadingRequest(false);
             setEmptyGroupName(false);
             setEmptyListOfMembers(false);
+            setGroupFormDecoration("initial")
             setFlashMessageText('');
+            setGroupForm(false);
         }
     }, [modalActive])
     const matchTypedUser = () =>{
@@ -126,7 +136,7 @@ const GroupForm=({users, modalActive, setModalActive, sendGroupForm, setSendGrou
             setTitle('');
             setSendGroupForm(true);
             setGroupFormDecoration("fail");
-            setFlashMessageText(error);
+            setFlashMessageText(error.message);
             setLoadingRequest(false);
             })
         };

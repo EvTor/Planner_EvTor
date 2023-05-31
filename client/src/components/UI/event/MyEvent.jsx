@@ -2,21 +2,32 @@ import React from "react";
 import classes from "./MyEvent.module.css";
 import Service from "../../../service/service";
 import SmallButton from "../button/SmallButton";
-const MyEvent = ({ exactEvent, locationInPanel, locationInCard, locationInInvite, users, clickedEditEvent, setEventForm, setGroupForm, setModalActive }) => {
+const MyEvent = ({ exactEvent,
+                     locationInPanel,
+                     locationInCard,
+                     locationInInvite,
+                     users,
+                     clickedEditEvent,
+                     setEventForm,
+                     setGroupForm,
+                     setModalActive,
+                     clickedAcceptInvite,
+                     clickedDeclineInvite}) => {
 
     const showTime = (date) => {
         if(date.slice(11, 16)[0] === "0")
         {return date.slice(12, 16)}
         else {return date.slice(11, 16)}
     };
+    const showDate = (date) => {
+        return date.slice(0, 10)
+    };
 
     const guestList = users?.filter(user => {
         return exactEvent.user.some(guest => {
             return guest.user_id === user.id
         })
-    })
-
-
+    });
 
     return (
         <>
@@ -39,7 +50,10 @@ const MyEvent = ({ exactEvent, locationInPanel, locationInCard, locationInInvite
                             {exactEvent.description}
                         </div>
                         <div className={classes.timeInPanel}>
-                            {showTime(exactEvent.startDate)} - {showTime(exactEvent.endDate)}
+                            {locationInPanel
+                                ?`${showTime(exactEvent.startDate)} - ${showTime(exactEvent.endDate)}`
+                                :`${showDate(exactEvent.startDate)} at ${showTime(exactEvent.startDate)} - ${showTime(exactEvent.endDate)}`
+                            }
                         </div>
                         <div className={classes.guestList}>
                             Guest list: {guestList.map(user =>
@@ -58,16 +72,10 @@ const MyEvent = ({ exactEvent, locationInPanel, locationInCard, locationInInvite
                             :
                             <div className={classes.buttons}>
                                 <SmallButton children="accept" color="blue" onClick={()=>{
-                                    clickedEditEvent(exactEvent);
-                                    setEventForm(true);
-                                    setGroupForm(false);
-                                    setModalActive(true);
+                                    clickedAcceptInvite(exactEvent);
                                 }}/>
                                 <SmallButton children="decline" color="red" onClick={()=>{
-                                    clickedEditEvent(exactEvent);
-                                    setEventForm(true);
-                                    setGroupForm(false);
-                                    setModalActive(true);
+                                    clickedDeclineInvite(exactEvent);
                                 }}/>
                             </div>
                         }

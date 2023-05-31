@@ -1,12 +1,13 @@
-.inputDiv{
+.inputDiv {
     width: 100%;
 
 }
-.inputDiv>input
-{
+
+.inputDiv>input {
     font-size: 0.8rem;
 }
-.inputDiv>label{
+
+.inputDiv>label {
     font-size: 0.9rem;
 }
 
@@ -17,7 +18,8 @@
     border: 1px solid #0057FF;
     border-radius: 1rem;
 }
-.validationErr{
+
+.validationErr {
     border: 1px solid #e30000;
     box-shadow: 2px 1px 10px #e30000;
 }
@@ -25,6 +27,7 @@
 .myInput:focus {
     box-shadow: 2px 1px 10px #0057FF;
 }
+
 .validationErr:focus {
     box-shadow: 2px 1px 10px #e30000;
 }

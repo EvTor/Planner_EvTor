@@ -1,7 +1,7 @@
 .invitesForm{
-    widh:100%;
     height: 25rem;
-    max-width: 400px;
+    min-width: 300px;
+    max-width: 100%;
     padding: 1rem;
     border-radius: 2rem;
     background-color: white;
@@ -17,6 +17,11 @@
     height: 20rem;
     border-radius: 1rem ;
     overflow-y: scroll;
+}
+.divLoader{
+
+    width: 100%;
+    height: 8rem;
 }
 
 .listOfInvites::-webkit-scrollbar {

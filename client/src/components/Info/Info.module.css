@@ -1,0 +1,36 @@
+.article {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+    gap: 2rem;
+}
+
+.aboutMe {
+    margin: auto;
+    max-width: 400px;
+    width: 95%;
+    border-radius: 3rem;
+    background-color: #DEE9FF;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    font-weight: bold;
+    gap: 0.5rem;
+}
+.name{
+    font-weight: bold;
+    font-size: 1.5rem;
+    background: #0057FF;
+    color: white;
+    border-radius: 1rem;
+}
+.link{
+    font-weight: bold;
+    font-size: 1.5rem;
+}

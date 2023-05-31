@@ -20,7 +20,7 @@ const EventDetailsPanel = ({ dayEventsDetails, users, setEventForm, setGroupForm
         setInvites(await EventService.showNotAcceptedEvents());
         setInvitesForm(true);
         setModalActive(true)
-    }
+    };
 
     useEffect(()=>{
         if(dayEventsDetails){setSelectDayMessage(false)}

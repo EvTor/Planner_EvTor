@@ -1,9 +1,10 @@
 import React from "react";
 import Header from "../components/Header/Header";
+import Info from "../components/Info/Info"
 const AboutApp =()=>{
     return(<div>
         <Header/>
-        <h1>About the app</h1>
+        <Info/>
     </div>)
 };
 export default AboutApp;
