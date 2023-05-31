@@ -1,6 +1,5 @@
 import React from "react";
 import classes from "./Input.module.css"
-import {classNamesShape} from "react-transition-group/cjs/utils/PropTypes";
 const Input = (props) => {
 
 

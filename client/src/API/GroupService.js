@@ -9,9 +9,8 @@ class GroupService {
         const { message, usersSharedId, errors } = await fetchData(url, requestMethod, reqBody, needAccess);
         if (!usersSharedId) {
             if (errors) {
-                const errorsArray = errors.errors.map(error => error.msg);
-                return (`${message} because: ${errorsArray}`)
-            } else return message
+                throw new Error(`${message} because: ${errors.errors.map(error => error.msg)}`)
+            } else throw new Error(message)
         }
         else { return message };
     };
@@ -24,7 +23,7 @@ class GroupService {
         const needAccess = true;
         const data = await fetchData(url, requestMethod, reqBody, needAccess);
         if (data.message) {
-            return data.message
+            throw new Error(data.message)
         }
         return data;
     };
@@ -36,7 +35,7 @@ class GroupService {
         const needAccess = true;
         const data = await fetchData(url, requestMethod, reqBody, needAccess);
         if (data.message) {
-            return data.message
+            throw new Error(data.message)
         }
         return data;
     };
@@ -48,9 +47,8 @@ class GroupService {
         const { message, usersSharedId, errors } = await fetchData(url, requestMethod, reqBody, needAccess);
         if (!usersSharedId) {
             if (errors) {
-                const errorsArray = errors.errors.map(error => error.msg);
-                return (`${message} because: ${errorsArray}`)
-            } else return message
+                throw new Error(`${message} because: ${errors.errors.map(error => error.msg)}`)
+            } else throw new Error(message)
         }
         else { return message };
     };
@@ -62,7 +60,7 @@ class GroupService {
         const needAccess = true;
         const { message, user } = await fetchData(url, requestMethod, reqBody, needAccess);
         if (!user) {
-            return message
+            throw new Error(message)
         }
         else { return { message, user } };
     };
@@ -74,7 +72,7 @@ class GroupService {
         const needAccess = true;
         const { message, user } = await fetchData(url, requestMethod, reqBody, needAccess);
         if (!user) {
-            return message
+            throw new Error(message)
         }
         else { return message };
     };
@@ -86,7 +84,7 @@ class GroupService {
         const needAccess = true;
         const { message, groupDelete } = await fetchData(url, requestMethod, reqBody, needAccess);
         if (!groupDelete) {
-            return message
+            throw new Error(message)
         }
         else { return message };
     };

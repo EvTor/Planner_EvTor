@@ -2,28 +2,33 @@
     border: solid 0.2rem #0057FF;
     border-radius: 2rem;
     background-color: #DEE9FF;
-    height: 10.5rem;
-    margin-bottom: 0.5rem;
+    height: 25%;
+    width: 100%;
 }
 .title{
-    height: 2.5rem;
+    height: 49%;
+
+}
+.title>*{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.2rem;
 }
 h1{
-    line-height: 2rem;
+    margin: 0;
+    padding: 0;
 }
-.buttons{
-    height: 2.5rem;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 0.25rem;
-}
-.groupList{
-height: 4.5rem;
-    overflow-y: scroll;
-    width: 100%;
-    border-radius: 0 0 2rem 2rem;
 
+.groupList{
+    height: 47%;
+    overflow-y: scroll;
+    border-radius: 0 0 2rem 2rem;
+    padding: 0.2rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
 }
 
 .groupList::-webkit-scrollbar {
@@ -31,25 +36,27 @@ height: 4.5rem;
 }
 .groupsDiv{
     text-align: center;
-    width: 90%;
-    margin: 0.2rem auto;
-    padding: 0.1rem;
+    height: 30%;
+    width: 70%;
+    margin: 0.5%;
+    padding: 0.01rem 1rem;
     color: #4E4E4E;
-    font-size: 0.6rem;
+    font-size: 65%;
     font-weight: bold;
     background-color: #ECECEC;
-    border-radius: 2rem;
-    box-shadow: 0px 1px 10px #414141;
+    border-radius: 0.5rem;
+    box-shadow: 0px 1px 7px #414141;
     border: 1px solid #414141;
     cursor: pointer;
-
 }
+
 .groupsDiv:hover {
     color: white;
     background-color: #4E4E4E;
 }
 
 .groupsDiv:active {
-    font-size: 0.5rem;
+    box-shadow: 0px 1px 6px #444444;
+    background: #444444;
+    border: 1px solid #444444;
 }
-

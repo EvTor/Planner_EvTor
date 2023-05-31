@@ -6,44 +6,86 @@
     left: 0;
     background-image: url("../../../public/background.jpg");
     background-color: rgb(242, 246, 255);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.Myform {
+.myForm {
     max-width: 400px;
-    width: 100%;
-    border: solid 5px #0057FF;
-    border-radius: 4rem;
+    width: 95%;
+    border-radius: 3rem;
     background-color: #DEE9FF;
-    box-shadow: 0px 5px 10px rgba(0, 87, 255, 0.5);
-    margin: 0.5rem auto;
     padding: 1rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-content: center;
+}
+.decorationInitial{
+
+    border: solid 0.25rem #0057FF;
+    box-shadow: 0px 5px 10px rgba(0, 87, 255, 0.5);
+}
+.decorationSuccess{
+    border: solid 0.25rem #009d18;
+    box-shadow: 0px 5px 10px rgb(1, 126, 19);
+}
+.decorationFail{
+    border: solid 0.25rem #e30000;
+    box-shadow: 0px 5px 10px rgb(176, 0, 0);
+}
+
+h1{
+    padding: 0.5rem 0 1rem 0;
+}
+
+.nameSurname{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap:5%
 }
 
 .divInputs>* {
-    padding: 0 1.5rem;
+    padding: 0 1rem;
+    margin: 0;
 }
+.LoginReg{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    gap: 1rem;
 
+}
 .Account {
     background-color: #ffffff;
-    border-radius: 4rem 1rem;
-    padding: 0.5rem 0;
-    margin-bottom: 0.2rem;
+    border-radius: 2.5rem 0.5rem;
+    padding: 0.2rem 0;
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-content: center;
 }
 
 .Account>* {
     margin: 0.5rem auto;
+    line-height: 0.5rem;
 
 }
 
 .Link {
     text-decoration: none;
+}
+
+.resultRequest{
+    margin: 0.5rem 0 0 0;
+    width: 100%;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

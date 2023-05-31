@@ -1,14 +1,21 @@
 .inputDiv{
     width: 100%;
-}
 
+}
+.inputDiv>input
+{
+    font-size: 0.8rem;
+}
+.inputDiv>label{
+    font-size: 0.9rem;
+}
 
 .myInput {
     width: 100%;
-    padding: 5px 15px;
+    padding: 0.4rem 0.8rem;
     margin: 0.2rem 0;
     border: 1px solid #0057FF;
-    border-radius: 2rem;
+    border-radius: 1rem;
 }
 .validationErr{
     border: 1px solid #e30000;

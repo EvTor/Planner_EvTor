@@ -10,9 +10,8 @@ class UserService {
         const { message, user, errors } = await fetchData(url, requestMethod, reqBody);
         if (!user) {
             if (errors) {
-                const errorsArray = errors.errors.map(error => error.msg);
-                return (`${message} because: ${errorsArray}`)
-            } else return message
+                throw new Error(`${message} because: ${errors.errors.map(error => error.msg)}`)
+            } else throw new Error(message)
         }
         else { return (`${message}, ${user.firstName} ${user.lastName}!`) };
     };
@@ -23,18 +22,17 @@ class UserService {
         const { message, token, errors } = await fetchData(url, requestMethod, reqBody);
         if (!token) {
             if (errors) {
-                const errorsArray = errors.errors.map(error => error.msg);
-                return (`${message} because: ${errorsArray}`)
-            } else return message
+                throw new Error(`${message} because: ${errors.errors.map(error => error.msg)}`)
+            } else throw new Error(message)
         }
         else {
-            localStorage.setItem("token", `Bearer ${token}`);
+            localStorage.setItem("token_Planner_EvTor", `Bearer ${token}`);
             return ("Successful login!")
         }
     };
 
     static logout = () => {
-        localStorage.removeItem("token")
+        localStorage.removeItem("token_Planner_EvTor")
     };
 
     static showUserData = async () => {
@@ -44,7 +42,7 @@ class UserService {
         const needAccess = true;
         const data = await fetchData(url, requestMethod, reqBody, needAccess);
         if (data.message) {
-            return data.message
+            throw new Error(data.message)
         }
         return data;
     };
@@ -56,7 +54,7 @@ class UserService {
         const needAccess = true;
         const data = await fetchData(url, requestMethod, reqBody, needAccess);
         if (data.message) {
-            return data.message
+            throw new Error(data.message)
         }
         return data;
     };
@@ -68,9 +66,8 @@ class UserService {
         const { message, user, errors } = await fetchData(url, requestMethod, reqBody, needAccess);
         if (!user) {
             if (errors) {
-                const errorsArray = errors.errors.map(error => error.msg);
-                return (`${message} because: ${errorsArray}`)
-            } else return message
+                throw new Error(`${message} because: ${errors.errors.map(error => error.msg)}`)
+            } else throw new Error(message)
         }
         else { return (`${message}, ${user.firstName} ${user.lastName}!`) };
     };
@@ -83,7 +80,7 @@ class UserService {
         const { message, deleteUser } = await fetchData(url, requestMethod, reqBody, needAccess);
         this.logout();
         if (!deleteUser) {
-            return message
+            throw new Error(message)
         }
         return { message, deleteUser };
     }

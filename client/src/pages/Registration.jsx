@@ -6,7 +6,7 @@ import RegistrationLoginForm from "../components/RegistrationForm/RegistrationLo
 const Registration = () => {
 
     return (
-        <div>
+        <div >
             <RegistrationLoginForm registration={true} />
         </div >
     );

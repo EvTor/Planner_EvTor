@@ -1,5 +1,10 @@
 class Service {
 
+    static cardColors = ()=>{
+        const colors = ["red", "orange", "yellow", "green", "blue", "pink", "purple", "brown", "grey"];
+        return colors
+    }
+
     static backgroundColor = (exactEvent) => {
         const datBaseColors = ["red", "orange", "yellow", "green", "blue", "pink", "purple", "brown", "grey"];
         const clientColors = ["red", "orange", "yellow", "green", "blue", "pink", "purple", "brown", "grey"];

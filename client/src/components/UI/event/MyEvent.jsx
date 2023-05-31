@@ -2,17 +2,13 @@ import React from "react";
 import classes from "./MyEvent.module.css";
 import Service from "../../../service/service";
 import SmallButton from "../button/SmallButton";
-const MyEvent = ({ exactEvent, locationInPanel, locationInCard, users }) => {
+const MyEvent = ({ exactEvent, locationInPanel, locationInCard, locationInInvite, users, clickedEditEvent, setEventForm, setGroupForm, setModalActive }) => {
 
     const showTime = (date) => {
-        const dateISO = new Date(date);
-        const localDate = dateISO;
-        let hours = localDate.getHours().toString();
-        if (hours.length < 2) { hours = `0${hours}` }
-        let minutes = localDate.getMinutes().toString();
-        if (minutes.length < 2) { minutes = `0${minutes}` }
-        return `${hours}:${minutes}`;
-    }
+        if(date.slice(11, 16)[0] === "0")
+        {return date.slice(12, 16)}
+        else {return date.slice(11, 16)}
+    };
 
     const guestList = users?.filter(user => {
         return exactEvent.user.some(guest => {
@@ -26,21 +22,18 @@ const MyEvent = ({ exactEvent, locationInPanel, locationInCard, users }) => {
         <>
             {locationInCard
                 ?
-                <>
                     <div className={classes.eventInCardDiv} style={{ backgroundColor: Service.backgroundColor(exactEvent) }}>
                         <div className={classes.timeInCard}>
-                            {showTime(exactEvent.startDate)} {showTime(exactEvent.endDate)}
+                            <div>{`${showTime(exactEvent.startDate)} ${showTime(exactEvent.endDate)}`}</div>
                         </div>
                         <div className={classes.descriptionInCard}>
-                            {exactEvent.description}
+                            <div>{exactEvent.description}</div>
                         </div>
                     </div>
-                </>
                 : null
             }
-            {locationInPanel
+            {locationInPanel || locationInInvite
                 ?
-                <>
                     <div className={classes.eventInPanelDiv} style={{ backgroundColor: Service.backgroundColor(exactEvent) }}>
                         <div className={classes.descriptionInPanel}>
                             {exactEvent.description}
@@ -52,12 +45,33 @@ const MyEvent = ({ exactEvent, locationInPanel, locationInCard, users }) => {
                             Guest list: {guestList.map(user =>
                                 <span key={user.id}>{`${user.firstName} ${user.lastName}, `}</span>)}
                         </div>
-                        <div className={classes.buttons}>
-                            <SmallButton children="edit"/>
-                            <SmallButton children="delete"/>
-                        </div>
+                        {locationInPanel
+                        ?
+                            <div className={classes.buttons}>
+                                <SmallButton children="edit delete" color="blue-red" onClick={()=>{
+                                    clickedEditEvent(exactEvent);
+                                    setEventForm(true);
+                                    setGroupForm(false);
+                                    setModalActive(true);
+                                }}/>
+                            </div>
+                            :
+                            <div className={classes.buttons}>
+                                <SmallButton children="accept" color="blue" onClick={()=>{
+                                    clickedEditEvent(exactEvent);
+                                    setEventForm(true);
+                                    setGroupForm(false);
+                                    setModalActive(true);
+                                }}/>
+                                <SmallButton children="decline" color="red" onClick={()=>{
+                                    clickedEditEvent(exactEvent);
+                                    setEventForm(true);
+                                    setGroupForm(false);
+                                    setModalActive(true);
+                                }}/>
+                            </div>
+                        }
                     </div>
-                </>
                 : null
             }
 

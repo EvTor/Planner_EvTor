@@ -9,9 +9,8 @@ class EventService {
         const { message, usersSharedId, errors } = await fetchData(url, requestMethod, reqBody, needAccess);
         if (!usersSharedId) {
             if (errors) {
-                const errorsArray = errors.errors.map(error => error.msg);
-                return (`${message} because: ${errorsArray}`)
-            } else return message
+                throw new Error(`${message} because: ${errors.errors.map(error => error.msg)}`)
+            } else throw new Error(message)
         }
         else { return message };
     };
@@ -24,10 +23,23 @@ class EventService {
         const needAccess = true;
         const data = await fetchData(url, requestMethod, reqBody, needAccess);
         if (data.message) {
-            return data.message
+            throw new Error(data.message)
         }
         return data;
     };
+
+    static showNotAcceptedEvents = async () => {
+        const url = "/eventsNotAccepted";
+        const requestMethod = "GET";
+        const reqBody = false;
+        const needAccess = true;
+        const data = await fetchData(url, requestMethod, reqBody, needAccess);
+        if (data.message) {
+            throw new Error(data.message)
+        }
+        return data;
+    };
+
 
     static showCertainEvent = async (id) => {
         const url = `/events/${id}`;
@@ -36,7 +48,7 @@ class EventService {
         const needAccess = true;
         const data = await fetchData(url, requestMethod, reqBody, needAccess);
         if (data.message) {
-            return data.message
+            throw new Error(data.message)
         }
         return data;
     };
@@ -48,9 +60,8 @@ class EventService {
         const { message, usersSharedId, errors } = await fetchData(url, requestMethod, reqBody, needAccess);
         if (!usersSharedId) {
             if (errors) {
-                const errorsArray = errors.errors.map(error => error.msg);
-                return (`${message} because: ${errorsArray}`)
-            } else return message
+                throw new Error(`${message} because: ${errors.errors.map(error => error.msg)}`)
+            } else throw new Error(message)
         }
         else { return message };
     };
@@ -62,7 +73,7 @@ class EventService {
         const needAccess = true;
         const { message, user } = await fetchData(url, requestMethod, reqBody, needAccess);
         if (!user) {
-            return message
+            throw new Error(message)
         }
         else { return { message, user } };
     };
@@ -74,7 +85,7 @@ class EventService {
         const needAccess = true;
         const { message, user } = await fetchData(url, requestMethod, reqBody, needAccess);
         if (!user) {
-            return message
+            throw new Error(message)
         }
         else { return message };
     };
@@ -86,7 +97,7 @@ class EventService {
         const needAccess = true;
         const { message, eventDelete } = await fetchData(url, requestMethod, reqBody, needAccess);
         if (!eventDelete) {
-            return message
+            throw new Error(message)
         }
         else { return message };
     };

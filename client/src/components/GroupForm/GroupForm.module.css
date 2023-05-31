@@ -6,6 +6,20 @@
     widh:100%;
     max-width: 400px;
     padding: 1rem;
+    border-radius: 2rem;
+    background-color: white;
+}
+.decorationInitial{
+    border: solid 0.25rem #0057FF;
+    box-shadow: 0px 5px 10px rgba(0, 87, 255, 0.5);
+}
+.decorationSuccess{
+    border: solid 0.25rem #009d18;
+    box-shadow: 0px 5px 10px rgb(1, 126, 19);
+}
+.decorationFail{
+    border: solid 0.25rem #e30000;
+    box-shadow: 0px 5px 10px rgb(176, 0, 0);
 }
 
 .groupForm>*{

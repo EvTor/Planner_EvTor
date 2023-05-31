@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import classes from "./MyCard.module.css"
 import MyEvent from "../event/MyEvent";
-const MyCard = ({ currentDayEvents, id, style, dayNumber, clickedDay }) => {
+const MyCard = ({ currentDayEvents, id, style, dayNumber, clickedDay, dayEventsDetails, eventFormDecoration }) => {
 
     const markCurrentDay = () => {
         const calendarTime = new Date(id);
@@ -11,13 +11,26 @@ const MyCard = ({ currentDayEvents, id, style, dayNumber, clickedDay }) => {
         if (calendarDate === currentDate)
             return classes.divMarkCurrentDay
     };
+    const markActiveDay =()=>{
+        if(dayEventsDetails){
+            if(dayEventsDetails.dayId === id)
+            { return classes.divMarkActiveDay}
+        }
+    };
 
     const dayIdAndEvents = {
         dayId: id,
         events: currentDayEvents
     };
+
+    useEffect(()=>{
+        if((eventFormDecoration === "success" && dayIdAndEvents.dayId === dayEventsDetails.dayId) ||
+            (eventFormDecoration === "success" && dayEventsDetails === undefined)){
+            clickedDay(dayIdAndEvents);
+        }},[eventFormDecoration]);
+
     return (
-        <div onClick={() => { clickedDay(dayIdAndEvents) }} className={`${classes.divMyCard} ${markCurrentDay()} `} style={style}>
+        <div onClick={() => { clickedDay(dayIdAndEvents) }} className={`${classes.divMyCard} ${markCurrentDay()} ${markActiveDay()}`} style={style}>
             <div className={classes.dayNumber}>{dayNumber}</div>
 
 

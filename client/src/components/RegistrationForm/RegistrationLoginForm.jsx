@@ -1,22 +1,86 @@
-import React, { useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import classes from './RegistrationLoginForm.module.css'
-import MyButton from "../UI/button/BigButton";
+import BigButton from "../UI/button/BigButton";
 import MyInput from "../UI/input/Input";
 import UserService from "../../API/UserService";
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import FlashMessage from "../UI/FlashMessage/FlashMessage";
+import Loader from "../UI/Loader/Loader";
+import MedButton from "../UI/button/MedButton";
+import {AuthContext} from "../../context/context";
 
 
 const RegistrationLoginForm = ({ registration, login }) => {
 
     const [firstName, setFirstName] = useState('');
+    const [notValidFirstName, setNotValidFirstName] = useState(false);
     const [lastName, setLastName] = useState('');
+    const [notValidLastName, setNotValidLastName] = useState(false);
     const [email, setEmail] = useState('');
+    const [notValidEmail, setNotValidEmail] = useState(false);
     const [password, setPassword] = useState('');
+    const [notValidPassword, setNotValidPassword] = useState(false);
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [notValidConfirmPassword, setNotValidConfirmPassword] = useState(false);
+
+    const [sendForm, setSendForm] = useState(false);
+    const [formDecoration, setFormDecoration] = useState("initial");
+
+    const [loadingRequest, setLoadingRequest] = useState(false);
+    const [flashMessageText, setFlashMessageText] = useState('');
+
+    const navigate = useNavigate();
+
+    const {isAuth, setIsAuth} = useContext(AuthContext);
+
+    const firstNameHandleChange =(e)=> {
+        setFirstName(e.target.value);
+        setNotValidFirstName(false);
+    };
+
+    const lastNameHandleChange =(e)=> {
+            setLastName(e.target.value);
+            setNotValidLastName(false);
+    };
+
+    const emailHandleChange =(e)=> {
+            setEmail(e.target.value);
+            setNotValidEmail(false);
+    };
+
+    const passwordHandleChange =(e)=> {
+            setPassword(e.target.value);
+            setNotValidPassword(false);
+    };
+
+    const confirmPasswordHandleChange =(e)=> {
+                setConfirmPassword(e.target.value);
+                setNotValidConfirmPassword(false);
+        };
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (registration) {
+        setLoadingRequest(true);
+        if(firstName.length < 1){
+            setNotValidFirstName(true)
+        };
+        if(lastName.length < 1){
+            setNotValidLastName(true);
+        };
+        if(email.length < 1){
+            setNotValidEmail(true);
+        };
+        if(password.length < 1){
+            setNotValidPassword(true);
+        };
+        if(confirmPassword.length < 1 || confirmPassword !== password){
+            setNotValidConfirmPassword(true);
+        };
+
+
+        if (registration && firstName.length >= 1 && lastName.length >= 1 && email.length >= 3 && password.length >= 3 &&
+            confirmPassword.length > 1 && confirmPassword === password) {
             const body = {
                 firstName,
                 lastName,
@@ -24,42 +88,90 @@ const RegistrationLoginForm = ({ registration, login }) => {
                 password
             }
 
-            UserService.registration(body).then((data) => console.log(data))
-        }
-        if (login) {
+            UserService.registration(body)
+                .then((data) => {
+                    console.log(data);
+                    setFlashMessageText(data);
+                    setSendForm(true);
+                    setFormDecoration("success");
+                    setLoadingRequest(false);
+
+                })
+                .catch((error)=>{
+                    console.log(error);
+                    setFlashMessageText(error.message);
+                    setSendForm(true);
+                    setFormDecoration("fail");
+                    setLoadingRequest(false);
+                })
+        };
+        if (login && email.length >= 3 && password.length >= 3) {
             const body = {
                 email,
                 password
             }
-            UserService.login(body).then((data) => console.log(data))
+            UserService.login(body)
+                .then((data) => {
+                    console.log(data);
+                    setFlashMessageText(data);
+                    setSendForm(true);
+                    setFormDecoration("success");
+                    setLoadingRequest(false);})
+                .catch((error)=>{
+                    console.log(error);
+                    setFlashMessageText(error.message);
+                    setSendForm(true);
+                    setFormDecoration("fail");
+                    setLoadingRequest(false);
+                })
         }
+    };
 
+    const subsequentAction = () =>{
+        if(registration && sendForm && formDecoration === "success")
+        {navigate("/login")};
+        if(login && sendForm && formDecoration === "success")
+        {setIsAuth(true);
+         navigate("/planner")};
     };
 
     return (
         <div className={classes.background}>
-            <form className={classes.Myform}>
-                <h1>Welcome</h1>
+
+            <form className={
+                formDecoration === "initial"
+                    ?`${classes.myForm} ${classes.decorationInitial}`
+                    : formDecoration === "success"
+                    ?`${classes.myForm} ${classes.decorationSuccess}`
+                    :`${classes.myForm} ${classes.decorationFail}`
+            }>
+                <h1>{registration
+                    ? "Registration"
+                    : "Login"
+                }</h1>
                 <div className={classes.divInputs}>
                     {registration
                         ? <>
-                            <h2>Registration</h2>
+                            <div className={classes.nameSurname}>
                             <MyInput
                                 children="Name"
                                 type="text"
                                 value={firstName}
-                                onChange={event => setFirstName(event.target.value)}
+                                placeHolder="Your last name"
+                                validationError={notValidFirstName}
+                                onChange={firstNameHandleChange}
                             />
                             <MyInput
                                 children="Surname"
                                 type="text"
                                 value={lastName}
-                                onChange={event => setLastName(event.target.value)}
+                                placeHolder="Your first name"
+                                validationError={notValidLastName}
+                                onChange={lastNameHandleChange}
+
                             />
+                        </div>
                         </>
-                        : null}
-                    {login
-                        ? <h2>Login</h2>
                         : null}
 
                     {registration || login
@@ -68,13 +180,19 @@ const RegistrationLoginForm = ({ registration, login }) => {
                                 children="E-mail"
                                 type="text"
                                 value={email}
-                                onChange={event => setEmail(event.target.value)}
+                                placeHolder="Enter your e-mail"
+                                validationError={notValidEmail}
+                                onChange={emailHandleChange}
+                                autocomplete="username"
                             />
                             <MyInput
                                 children="Password"
-                                type="text"
+                                type="password"
                                 value={password}
-                                onChange={event => setPassword(event.target.value)}
+                                placeHolder="3 characters minimum"
+                                validationError={notValidPassword}
+                                onChange={passwordHandleChange}
+                                autocomplete="new-password"
                             />
                         </>
                         : null
@@ -83,49 +201,73 @@ const RegistrationLoginForm = ({ registration, login }) => {
                         ? <>
                             <MyInput
                                 children="Confirm Password"
-                                type="text"
+                                type="password"
                                 value={confirmPassword}
-                                onChange={event => setConfirmPassword(event.target.value)}
+                                placeHolder="3 characters minimum"
+                                validationError={notValidConfirmPassword}
+                                onChange={confirmPasswordHandleChange}
+                                autocomplete="new-password"
                             />
                         </>
                         : null}
 
                 </div>
                 {login
-                    ? <>
-                        <MyButton
+                    ? <div className={classes.LoginReg}>
+                        <BigButton
                             onClick={handleSubmit}
                             children="Login"
+                            color="blue"
                             style={{ display: "block", margin: "1rem auto" }} />
                         <div className={classes.Account}>
                             <h4 style={{ textAlign: "center" }}>Don't have an account?</h4>
                             <Link to="/registration" className={classes.Link}>
-                                <MyButton
+                                <MedButton
                                     children="Create new account"
+                                    color="grey"
                                 />
                             </Link>
                         </div>
 
-                    </>
+                    </div>
                     : null}
                 {registration
-                    ? <>
-                        <MyButton
+                    ? <div className={classes.LoginReg}>
+                        <BigButton
                             onClick={handleSubmit}
                             children="Create new account"
-                            style={{ display: "block", margin: "1rem auto" }} />
+                            color="blue" />
                         <div className={classes.Account}>
                             <h4 style={{ textAlign: "center" }}>Already registered?</h4>
                             <Link to="/login" className={classes.Link}>
-                                <MyButton
+                                <MedButton
                                     children="Login"
+                                    color="grey"
                                 />
                             </Link>
                         </div>
-                    </>
+                    </div>
                     : null}
 
+                <div className={classes.resultRequest}>
 
+                    {loadingRequest
+                        ?<Loader/>
+                        :<>
+                            {sendForm
+                                ?<FlashMessage
+                                    text={flashMessageText}
+                                    sendForm={sendForm}
+                                    setSendForm={setSendForm}
+                                    formDecoration={formDecoration}
+                                    setFormDecoration={setFormDecoration}
+                                    subsequentAction={subsequentAction}
+                                />
+                                :null
+                            }
+                        </>
+                    }
+                </div>
             </form>
         </div>
     )

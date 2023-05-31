@@ -77,6 +77,24 @@ class EventController {
         }
     ];
 
+    showNotAcceptedEvents = [
+        //Registration check
+        accessForRegistered(),
+        //Get request
+        async (req, res) => {
+            try {
+                const userGuest = req.user.id;
+                //Find all events associated with User
+                const myEvents = await Event.find({ user: { $elemMatch: { user_id: userGuest, accepted: false } } });
+                res.json(myEvents);
+
+            } catch (err) {
+                res.status(400).json({ message: "GET request error" })
+            }
+        }
+    ];
+
+
     showCertainEvent = [
         //Registration check
         accessForRegistered(),

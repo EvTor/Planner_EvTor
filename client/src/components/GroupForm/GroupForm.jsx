@@ -7,7 +7,7 @@ import Loader from "../UI/Loader/Loader";
 import SmallButton from "../UI/button/SmallButton";
 import FlashMessage from "../UI/FlashMessage/FlashMessage";
 
-const GroupForm=({users, modalActive, setModalActive, sendGroupForm, setSendGroupForm, successGroupForm, setSuccessGroupForm, groupEdit})=>{
+const GroupForm=({users, modalActive, setModalActive, sendGroupForm, setSendGroupForm, groupFormDecoration, setGroupFormDecoration, groupEdit})=>{
 
     const [email, setEmail] = useState('');
     const [emailForMatching, setEmailForMatching] = useState('');
@@ -24,7 +24,6 @@ const GroupForm=({users, modalActive, setModalActive, sendGroupForm, setSendGrou
         if (groupEdit){
             setTitle(groupEdit.title);
             const groupMembersWithoutFounder = groupEdit.user.map(member => member.user_id).slice(1);
-            console.log(groupMembersWithoutFounder)
             const listOfUsers = users.filter(user=>{
                 return groupMembersWithoutFounder.some(member => {
                     return member === user.id
@@ -43,7 +42,7 @@ const GroupForm=({users, modalActive, setModalActive, sendGroupForm, setSendGrou
     }, [email]);
 
     useEffect(()=>{
-        matchTipedUser();
+        matchTypedUser();
 
     }, [emailForMatching])
 
@@ -61,7 +60,7 @@ const GroupForm=({users, modalActive, setModalActive, sendGroupForm, setSendGrou
             setFlashMessageText('');
         }
     }, [modalActive])
-    const matchTipedUser = () =>{
+    const matchTypedUser = () =>{
             const matchedUsers = users.filter(user =>
                 {if (user.email === emailForMatching)
                 {return user}});
@@ -89,6 +88,7 @@ const GroupForm=({users, modalActive, setModalActive, sendGroupForm, setSendGrou
     };
 
     if(title.length >= 1 && listOfMembers.length >= 1){
+
         const listOfMembersId = listOfMembers.map(member => member.id)
         const body = {
             title,
@@ -115,7 +115,7 @@ const GroupForm=({users, modalActive, setModalActive, sendGroupForm, setSendGrou
             setListOfMembers([]);
             setTitle('');
             setSendGroupForm(true);
-            setSuccessGroupForm(true);
+            setGroupFormDecoration("success");
             setFlashMessageText(data);
             setLoadingRequest(false);
         })
@@ -125,7 +125,7 @@ const GroupForm=({users, modalActive, setModalActive, sendGroupForm, setSendGrou
             setListOfMembers([]);
             setTitle('');
             setSendGroupForm(true);
-            setSuccessGroupForm(false);
+            setGroupFormDecoration("fail");
             setFlashMessageText(error);
             setLoadingRequest(false);
             })
@@ -149,18 +149,29 @@ const GroupForm=({users, modalActive, setModalActive, sendGroupForm, setSendGrou
         setListOfMembers(filteredArray)
     };
 
+    const subsequentAction = () =>{
+        if(modalActive){
+            setModalActive(false);
+        };
+    };
 
     return(
-        <form className={classes.groupForm}>
+        <form className={
+            groupFormDecoration === "initial"
+                ?`${classes.groupForm} ${classes.decorationInitial}`
+                : groupFormDecoration === "success"
+                    ?`${classes.groupForm} ${classes.decorationSuccess}`
+                    :`${classes.groupForm} ${classes.decorationFail}`
+        }>
             {groupEdit
-            ?<h1>Update {groupEdit.title}</h1>
-            :<h1>Create new group</h1>}
+            ?<h1>Update <br/> {groupEdit.title}</h1>
+            :<h1>Create <br/> new group</h1>}
 
             <Input
                 children="Group name"
                 type="string"
                 value={title}
-                placeHolder="Type the group name"
+                placeHolder="Enter the group name"
                 validationError={emptyGroupName}
                 onChange = {groupNameHandle}
             />
@@ -169,7 +180,7 @@ const GroupForm=({users, modalActive, setModalActive, sendGroupForm, setSendGrou
                 children="Add members"
                 type="email"
                 value={email}
-                placeHolder="Type the email"
+                placeHolder="Enter the email"
                 validationError={emptyListOfMembers}
                 onChange = {membersHandle}
             />
@@ -184,7 +195,7 @@ const GroupForm=({users, modalActive, setModalActive, sendGroupForm, setSendGrou
                                     <>
                                         <div
                                             className={classes.name}>{`${newMember.firstName} ${newMember.lastName}`}</div>
-                                        <SmallButton onClick={addMemberToList} children="+ Add"/>
+                                        <SmallButton onClick={addMemberToList} color="blue" children="+ Add"/>
                                     </>
                                     : <span className={classes.userNotFound}>User was not found</span>}
                             </>
@@ -197,22 +208,22 @@ const GroupForm=({users, modalActive, setModalActive, sendGroupForm, setSendGrou
                 <div className={classes.listOfMembers}>
 
                     {listOfMembers.map((member)=>
-                        <div className={classes.memberLine}>
+                        <div key={member.id} className={classes.memberLine}>
                         <div className={classes.member} key={member.id}>
                             {`${member.firstName} ${member.lastName}`}
 
                         </div>
-                            <SmallButton onClick={e=> {e.preventDefault(); removeMemberFromList(member)}} children="-remove" />
+                            <SmallButton onClick={e=> {e.preventDefault(); removeMemberFromList(member)}} color="red" children="-remove" />
                         </div>
                     )}
                 </div>
 
             {groupEdit
                 ?<div className={classes.editButtons}>
-                    <MedButton children="Edit" onClick={e=> { handleSubmit(e, "edit")}}/>
-                    <MedButton children="Delete" delete="delete" onClick={e=> {e.preventDefault(); if (window.confirm('Are you sure you wish to delete this item?'))handleSubmit(e, "delete")}}/>
+                    <MedButton children="Edit" color="blue" onClick={e=> { handleSubmit(e, "edit")}}/>
+                    <MedButton children="Delete" color="red" onClick={e=> {e.preventDefault(); if (window.confirm('Are you sure you wish to delete this item?'))handleSubmit(e, "delete")}}/>
                 </div>
-            :<MedButton children="Create" onClick={e=> {handleSubmit(e, "create")}}/>
+            :<MedButton children="Create" color="blue" onClick={e=> {handleSubmit(e, "create")}}/>
             }
 
             <div className={classes.resultRequest}>
@@ -224,9 +235,9 @@ const GroupForm=({users, modalActive, setModalActive, sendGroupForm, setSendGrou
                         text={flashMessageText}
                         sendForm={sendGroupForm}
                         setSendForm={setSendGroupForm}
-                        successForm={successGroupForm}
-                        setSuccessForm={setSuccessGroupForm}
-                        setModalActive={setModalActive} />
+                        formDecoration={groupFormDecoration}
+                        setFormDecoration={setGroupFormDecoration}
+                        subsequentAction={subsequentAction } />
                     :null
             }
                 </>

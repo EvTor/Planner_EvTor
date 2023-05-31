@@ -11,13 +11,15 @@
     opacity: 0;
     pointer-events: none;
     transition: 0.5s;
+    overflow-y: scroll;
 }
 .modalContent{
-    padding: 1rem;
+    max-height: 90%;
     border-radius: 2rem;
     background-color: white;
     transform: scale(0.5);
     transition: 0.4s all;
+    margin: 1.5rem;
 }
 
 .modal.active{
@@ -26,4 +28,8 @@
 }
 .modalContent.active{
     transform: scale(1);
+}
+
+.modal::-webkit-scrollbar {
+    display: none;
 }

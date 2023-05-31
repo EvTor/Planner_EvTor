@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import classes from "./SelectYearMonth.module.css"
-import MyButton from "../button/BigButton";
+import BigButton from "../button/BigButton";
 
-const SelectYearMonth = ({ specYearMonth }) => {
+const SelectYearMonth = ({ specYearMonth, dayEventsDetails }) => {
+
+
+
     const currentYear = new Date().getFullYear();
     const fifteenYears = [];
     for (let i = 0; i < 15; i++) {
@@ -14,11 +17,19 @@ const SelectYearMonth = ({ specYearMonth }) => {
         "July", "August", "September", "October", "November", "December"
     ];
 
+    const initialYear = ()=>{
+        if(dayEventsDetails)
+        {return parseInt(dayEventsDetails.dayId.slice(0,4))}
+        else{return currentYear}
+    };
+    const initialMonth =()=>{
+        if(dayEventsDetails)
+        {return monthNames[parseInt(dayEventsDetails.dayId.slice(5,7))-1]}
+        else{return monthNames[currentMonth]}
+    };
 
-
-    const [year, setYear] = useState(currentYear);
-    const [month, setMonth] = useState(monthNames[currentMonth]);
-
+    const [year, setYear] = useState(initialYear());
+    const [month, setMonth] = useState(initialMonth());
     useEffect(() => {
         specYearMonth(year, monthNames.indexOf(month));
     }, [year, month])
@@ -45,11 +56,13 @@ const SelectYearMonth = ({ specYearMonth }) => {
 
     return (
         <div className={classes.yearMonthPanel}>
-            <MyButton
+            <BigButton
                 children="< Previous"
+                color="blue"
+                sizeChange={true}
                 onClick={previous}
             />
-            <form>
+            <form className={classes.yearMonthSelects}>
 
                 <select
                     className={classes.yearMonth}
@@ -72,8 +85,10 @@ const SelectYearMonth = ({ specYearMonth }) => {
                 </select>
 
             </form>
-            <MyButton
+            <BigButton
                 children="Next >"
+                color="blue"
+                sizeChange={true}
                 onClick={next} />
         </div>
     )

@@ -1,8 +1,8 @@
 .divMyCard {
-    width: 9em;
-    height: 6.5em;
+    width: 100%;
+    height: 100%;
     background-color: #ECECEC;
-    border-radius: 1.5rem;
+    border-radius: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,8 +23,6 @@
     border-radius: 50%;
     padding: 0.1rem;
 }
-
-
 
 .showMore {
     color: #3f3f3f;
@@ -49,4 +47,11 @@
     border: 2px solid #0057FF;
     padding: 1px;
     background-color: #DEE9FF;
+}
+
+@media only screen and (max-width: 800px){
+    .showMore{
+        font-size: 0.3rem;
+        line-height: 0.3rem;
+    }
 }

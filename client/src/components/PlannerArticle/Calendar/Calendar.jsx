@@ -2,14 +2,11 @@ import React, { useState } from "react";
 import MyCard from "../../UI/card/MyCard";
 import classes from "./Calendar.module.css"
 import SelectYearMonth from "../../UI/selectYearMonth/SelectYearMonth";
-const Calendar = ({ events, clickedDay }) => {
+const Calendar = ({ events, clickedDay, dayEventsDetails, eventFormDecoration }) => {
     const specYearMonth = (selectedYear, selectedMonth) => {
-
         const days = new Date(selectedYear, selectedMonth + 1, 0).getDate();
-
         setMonth({ selectedYear, selectedMonth, days })
-    }
-
+    };
     const [month, setMonth] = useState({});
 
     let daysMonth = [];
@@ -52,13 +49,25 @@ const Calendar = ({ events, clickedDay }) => {
     return (
 
         <div className={classes.calendarDiv}>
-            <SelectYearMonth specYearMonth={specYearMonth} />
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "0.1rem" }}>
+            <SelectYearMonth specYearMonth={specYearMonth} dayEventsDetails={dayEventsDetails}/>
+            <div className={classes.gridCards} >
                 {weekDays.map((value, index) =>
-                    <div key={index} style={{ textAlign: "center" }}><h4>{value}</h4></div>
+                    <div key={index} className={classes.weekDays}>{
+                        window.innerWidth < 800
+                        ?value.slice(0, 3)
+                        :value
+                    }</div>
                 )}
                 {daysMonth.map(e =>
-                    <MyCard key={exactDate(e)} clickedDay={clickedDay} currentDayEvents={currentDayEvents(e)} id={exactDate(e)} dayNumber={(e)} style={{ gridColumnStart: dayWeek(() => exactDate(e)) }} />
+                    <MyCard key={exactDate(e)}
+                            clickedDay={clickedDay}
+                            dayEventsDetails={dayEventsDetails}
+                            currentDayEvents={currentDayEvents(e)}
+                            id={exactDate(e)}
+                            dayNumber={(e)}
+                            style={{ gridColumnStart: dayWeek(() => exactDate(e)) }}
+                            eventFormDecoration={eventFormDecoration}
+                    />
                 )}
             </div>
         </div>

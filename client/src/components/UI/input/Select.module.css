@@ -1,0 +1,13 @@
+.divSelect{
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+}
+.mySelect{
+    background-color: transparent;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.5rem;
+    appearance: none;
+    cursor: pointer;
+}
