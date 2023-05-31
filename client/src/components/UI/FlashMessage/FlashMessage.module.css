@@ -1,0 +1,17 @@
+.success{
+    width: 80%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 0.7rem;
+    color: green;
+    overflow-y: scroll;
+    height: 100%;
+}
+
+.fail{
+    color: #e30000;
+}
+
+.success::-webkit-scrollbar {
+    display: none;
+}

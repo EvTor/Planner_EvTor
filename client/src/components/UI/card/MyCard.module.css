@@ -1,0 +1,57 @@
+.divMyCard {
+    width: 100%;
+    height: 100%;
+    background-color: #ECECEC;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    padding: 3px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.dayNumber {
+    text-align: center;
+    background-color: black;
+    color: white;
+    font-size: 0.6rem;
+    font-weight: bold;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 50%;
+    padding: 0.1rem;
+}
+
+.showMore {
+    color: #3f3f3f;
+    font-size: 0.6rem;
+    font-weight: bold;
+    font-style: italic;
+    line-height: 0.6rem;
+    text-decoration: underline;
+
+}
+
+.divMyCard:hover {
+    border: 2px solid #0057FF;
+    padding: 1px;
+}
+
+.divMarkCurrentDay {
+    background-color: #CFF4B3;
+}
+
+.divMarkActiveDay {
+    border: 2px solid #0057FF;
+    padding: 1px;
+    background-color: #DEE9FF;
+}
+
+@media only screen and (max-width: 800px){
+    .showMore{
+        font-size: 0.3rem;
+        line-height: 0.3rem;
+    }
+}

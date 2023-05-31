@@ -1,0 +1,40 @@
+.calendarDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+}
+
+.gridCards{
+    display:grid;
+    grid-template-columns:
+            repeat(7, minmax(110px, 300px));
+    grid-template-rows:
+            1.5rem repeat(6, minmax(65px, 11.5vh)
+            );
+    gap: 0.1rem;
+}
+.weekDays{
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+
+}
+
+@media only screen and (max-width: 800px){
+    .calendarDiv{
+        width: 100%;
+        border: solid 0.2rem #0057FF;
+        border-radius: 2rem;
+        padding: 1.5rem 0.5rem;
+    }
+    .gridCards{
+        display:grid;
+        grid-template-columns:
+            repeat(7, minmax(50px, 150px));
+        grid-template-rows:
+            1.5rem repeat(6, 80px);
+        gap: 0.1rem;
+    }
+}

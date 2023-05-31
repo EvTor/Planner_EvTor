@@ -171,9 +171,9 @@ class GroupController {
                     return res.status(400).json({ message: "You do not have a permission" });
                 };
 
-                const group = await Group.findByIdAndDelete(req.params.id);
-                if (group) {
-                    return res.json({ message: "Group successfully deleted", group })
+                const groupDelete = await Group.findByIdAndDelete(req.params.id);
+                if (groupDelete) {
+                    return res.json({ message: "Group successfully deleted", groupDelete })
                 } else {
                     return res.status(404).json({ message: "Group was not found" })
                 }
@@ -183,7 +183,6 @@ class GroupController {
             }
         }
     ];
-
 };
 
 const groupController = new GroupController();

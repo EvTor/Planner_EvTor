@@ -1,0 +1,24 @@
+.divNavBar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.navBar{
+    display: flex;
+    justify-content: start;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0;
+}
+.linkMain{
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+
+}
+.link{
+    color: white;
+    font-size: 1rem;
+
+}

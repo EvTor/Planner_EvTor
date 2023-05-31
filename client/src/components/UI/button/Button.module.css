@@ -1,0 +1,113 @@
+.bigBtn {
+    height: 2.6rem;
+    min-width: 8rem;
+    max-width: 15rem;
+    padding: 0.3rem 0.6rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    border-radius: 2rem;
+}
+.medBtn {
+    height: 2.2rem;
+    min-width: 6rem;
+    max-width: 12rem;
+    padding: 0.2rem 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 2rem;
+}
+.smallBtn {
+    height: 1.4rem;
+    min-width: 5rem;
+    max-width: 10rem;
+    padding: 0.15rem 0.5rem;
+    font-size: 0.6rem;
+    font-weight: bold;
+    border-radius: 2rem;
+}
+
+.redButton{
+    background-color: #ffe5e5;
+    color: #e30000;
+    border: 2px solid #e30000;
+    box-shadow: 0px 1px 10px #e30000;
+}
+.redButton:hover{
+    color: white;
+    background-color: #e30000;
+}
+.redButton:active{
+    color: white;
+    box-shadow: 0px 1px 6px #a90000;
+    background: #a90000;
+    border: 2px solid #a90000;
+}
+
+.blueButton{
+    color: #0057FF;
+    background: #DEE9FF;
+    border: 2px solid #0057FF;
+    box-shadow: 0px 1px 10px #0057FF;
+}
+.blueButton:hover {
+    color: white;
+    background: #0057FF;
+}
+
+.blueButton:active {
+    color: white;
+    box-shadow: 0px 1px 6px #004fe7;
+    background: #004fe7;
+    border: 2px solid #004fe7;
+}
+
+.greyButton{
+    color: #4E4E4E;
+    background-color: #ECECEC;
+    box-shadow: 0px 1px 10px #4E4E4E;
+    border: 2px solid #4E4E4E;
+}
+.greyButton:hover {
+    color: white;
+    background-color: #4E4E4E;
+}
+
+.greyButton:active {
+    color: white;
+    box-shadow: 0px 1px 6px #414141;
+    background: #414141;
+    border: 2px solid #414141;
+}
+
+.blueRedButton{
+    color: #0057FF;
+    border-left: 2px solid #0057FF;
+    border-top: 2px solid #0057FF;
+    border-right: 2px solid #e30000;
+    border-bottom: 2px solid #e30000;
+    background: #DEE9FF;
+    box-shadow: 0px -2px 10px #0057FF, 0px 2px 10px #e30000 ;
+}
+.blueRedButton:hover {
+    color: white;
+    background-image: linear-gradient(to bottom right, #0057FF 50%, #e30000 50%);
+    border: none;
+}
+.blueRedButton:active {
+    color: white;
+    box-shadow: 0px -2px 6px #004fe7, 0px 2px 6px #a90000 ;
+    background-image: linear-gradient(to bottom right, #004fe7 50%, #a90000 50%);
+    border: none;
+}
+
+@media only screen and (max-width: 800px){
+    .sizeChange{
+        min-width: 5rem;
+        max-width: 15rem;
+        font-size: 0.7rem;
+        font-weight: bold;
+        height: 2rem;
+        width: 5.5rem;
+        padding: 0.4rem 0.5em;
+    }
+}

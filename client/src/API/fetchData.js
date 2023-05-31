@@ -7,7 +7,7 @@ export const fetchData = async (url, requestMethod, reqBody = false, needAccess 
         if (!needAccess) {
             return ({ "Content-Type": "application/json" })
         };
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem("token_Planner_EvTor");
         return {
             "Content-Type": "application/json",
             "Authorization": token

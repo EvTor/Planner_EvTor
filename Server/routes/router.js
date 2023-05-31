@@ -24,7 +24,8 @@ router.delete('/user/delete', userController.deleteProfile);
 
 //event routes//////////////////////////////////////////////////
 //GET requests
-router.get('/events', eventController.showMyEvents);
+router.get('/events', eventController.showMyEvents);    //Show accepted events
+router.get('/eventsNotAccepted', eventController.showNotAcceptedEvents);    //show not accepted events
 router.get('/events/:id', eventController.showCertainEvent);
 //POST requests
 router.post('/events', eventController.createNewEvent);

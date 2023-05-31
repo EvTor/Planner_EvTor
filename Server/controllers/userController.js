@@ -15,7 +15,7 @@ const generateAccessToken = (id, role) => {
         id,
         role
     }
-    return jwt.sign(payload, secret.key, { expiresIn: "24h" })
+    return jwt.sign(payload, secret.key)  //Ne expiration like{ expiresIn: "24h" }
 };
 
 class UserController {

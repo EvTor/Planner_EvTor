@@ -1,0 +1,49 @@
+.eventPanelDiv {
+    border: solid 0.2rem #0057FF;
+    border-radius: 2rem;
+    background-color: #DEE9FF;
+    max-width: 100%;
+    height: 75%;
+}
+.selectDayMessage{
+    color: #e30000;
+    text-align: center;
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+.titlePanel{
+    height: 15%;
+}
+.bodyPanel{
+    height: 77%;
+}
+
+.eventListDiv {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    border-radius: 2rem;
+    padding: 0 0.5rem;
+}
+
+h4 {
+    text-align: center;
+    margin: 0.5rem 0 0 0 ;
+}
+
+.buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.eventListDiv::-webkit-scrollbar {
+    display: none;
+}
+@media only screen and (max-width: 1200px){
+    .eventPanelDiv{
+        order: -1;
+    }
+}
