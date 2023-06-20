@@ -54,4 +54,7 @@
         font-size: 0.3rem;
         line-height: 0.3rem;
     }
+    .divMyCard{
+        border-radius: 0.7rem;
+    }
 }

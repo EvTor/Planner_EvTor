@@ -35,7 +35,17 @@ const MyCard = ({ currentDayEvents, id, style, dayNumber, clickedDay, dayEventsD
 
 
             {
-                currentDayEvents.slice(0, 3).map(e =>
+                currentDayEvents.sort((a,b)=>{
+                    if(
+                        (parseInt(a.startDate.slice(11, 16).split(':').join(''))
+                            > parseInt(b.startDate.slice(11, 16).split(':').join('')))
+                    ){return 1}
+                    if(
+                        (parseInt(a.startDate.slice(11, 16).split(':').join(''))
+                            < parseInt(b.startDate.slice(11, 16).split(':').join('')))
+                    ){return - 1}
+                    return 0
+                }).slice(0, 3).map(e =>
                     <MyEvent locationInCard="true" key={`${e._id}card`} exactEvent={e} />
                 )
             }

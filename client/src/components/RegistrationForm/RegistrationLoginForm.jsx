@@ -39,24 +39,24 @@ const RegistrationLoginForm = ({ registration, login }) => {
     };
 
     const lastNameHandleChange =(e)=> {
-            setLastName(e.target.value);
-            setNotValidLastName(false);
+        setLastName(e.target.value);
+        setNotValidLastName(false);
     };
 
     const emailHandleChange =(e)=> {
-            setEmail(e.target.value);
-            setNotValidEmail(false);
+        setEmail(e.target.value);
+        setNotValidEmail(false);
     };
 
     const passwordHandleChange =(e)=> {
-            setPassword(e.target.value);
-            setNotValidPassword(false);
+        setPassword(e.target.value);
+        setNotValidPassword(false);
     };
 
     const confirmPasswordHandleChange =(e)=> {
-                setConfirmPassword(e.target.value);
-                setNotValidConfirmPassword(false);
-        };
+        setConfirmPassword(e.target.value);
+        setNotValidConfirmPassword(false);
+    };
 
 
     const handleSubmit = (e) => {
@@ -132,7 +132,7 @@ const RegistrationLoginForm = ({ registration, login }) => {
         {navigate("/login")};
         if(login && sendForm && formDecoration === "success")
         {setIsAuth(true);
-         navigate("/planner")};
+            navigate("/planner")};
     };
 
     return (
@@ -142,8 +142,8 @@ const RegistrationLoginForm = ({ registration, login }) => {
                 formDecoration === "initial"
                     ?`${classes.myForm} ${classes.decorationInitial}`
                     : formDecoration === "success"
-                    ?`${classes.myForm} ${classes.decorationSuccess}`
-                    :`${classes.myForm} ${classes.decorationFail}`
+                        ?`${classes.myForm} ${classes.decorationSuccess}`
+                        :`${classes.myForm} ${classes.decorationFail}`
             }>
                 <h1>{registration
                     ? "Registration"
@@ -153,24 +153,24 @@ const RegistrationLoginForm = ({ registration, login }) => {
                     {registration
                         ? <>
                             <div className={classes.nameSurname}>
-                            <MyInput
-                                children="Name"
-                                type="text"
-                                value={firstName}
-                                placeHolder="Your last name"
-                                validationError={notValidFirstName}
-                                onChange={firstNameHandleChange}
-                            />
-                            <MyInput
-                                children="Surname"
-                                type="text"
-                                value={lastName}
-                                placeHolder="Your first name"
-                                validationError={notValidLastName}
-                                onChange={lastNameHandleChange}
+                                <MyInput
+                                    children="Name"
+                                    type="text"
+                                    value={firstName}
+                                    placeHolder="Your last name"
+                                    validationError={notValidFirstName}
+                                    onChange={firstNameHandleChange}
+                                />
+                                <MyInput
+                                    children="Surname"
+                                    type="text"
+                                    value={lastName}
+                                    placeHolder="Your first name"
+                                    validationError={notValidLastName}
+                                    onChange={lastNameHandleChange}
 
-                            />
-                        </div>
+                                />
+                            </div>
                         </>
                         : null}
 

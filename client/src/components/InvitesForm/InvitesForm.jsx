@@ -75,7 +75,7 @@ const InvitesForm = ({
 
     return(
         <div className={classes.invitesForm}>
-            {invites.length > 0
+            {invites
             ?<>
                     <div className={classes.title}>
                     <h1>My invites</h1>
@@ -84,16 +84,37 @@ const InvitesForm = ({
                         {
                             loadingRequest
                                 ?<div className={classes.divLoader}><Loader/></div>
-                                :<>
-                        {invites.map(invite=>
-                        <MyEvent
-                            key={invite._id}
-                            users={users}
-                            locationInInvite="true"
-                            exactEvent={invite}
-                            clickedAcceptInvite={clickedAcceptInvite}
-                            clickedDeclineInvite={clickedDeclineInvite}/>
-                    )}
+                                :
+                                <>
+                                {invites
+                                ?<>
+                                    {invites.sort((a,b)=>{
+                                            if(
+                                                (parseInt(a.startDate.slice(0, 10).split('-').join('')+
+                                                        a.startDate.slice(11, 16).split(':').join(''))
+                                                    > parseInt(b.startDate.slice(0, 10).split('-').join('')+
+                                                        b.startDate.slice(11, 16).split(':').join('')))
+                                            ){return 1}
+                                            if(
+                                                (parseInt(a.startDate.slice(0, 10).split('-').join('')+
+                                                        a.startDate.slice(11, 16).split(':').join(''))
+                                                    < parseInt(b.startDate.slice(0, 10).split('-').join('')+
+                                                        b.startDate.slice(11, 16).split(':').join('')))
+                                            ){return - 1}
+                                            return 0
+                                        }).map(invite=>
+                                            <MyEvent
+                                                key={invite._id}
+                                                users={users}
+                                                locationInInvite="true"
+                                                exactEvent={invite}
+                                                clickedAcceptInvite={clickedAcceptInvite}
+                                                clickedDeclineInvite={clickedDeclineInvite}/>
+                                        )}
+                                        </>
+                                    :null
+                                }
+
                                 </>
                         }
                     </div>

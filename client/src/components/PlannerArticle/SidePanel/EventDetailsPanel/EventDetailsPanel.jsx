@@ -25,7 +25,6 @@ const EventDetailsPanel = ({ dayEventsDetails, users, setEventForm, setGroupForm
     useEffect(()=>{
         if(dayEventsDetails){setSelectDayMessage(false)}
     },[dayEventsDetails]);
-
     return (
         <div className={classes.eventPanelDiv}>
             <div className={classes.titlePanel}>
@@ -56,7 +55,17 @@ const EventDetailsPanel = ({ dayEventsDetails, users, setEventForm, setGroupForm
                 <>
                     <h4>{Service.dayFormatter(dayEventsDetails.dayId)}</h4>
                     <div className={classes.eventListDiv}>
-                        {dayEventsDetails.events.map(event =>
+                        {dayEventsDetails.events.sort((a,b)=>{
+                            if(
+                                (parseInt(a.startDate.slice(11, 16).split(':').join(''))
+                                    > parseInt(b.startDate.slice(11, 16).split(':').join('')))
+                                ){return 1}
+                            if(
+                                (parseInt(a.startDate.slice(11, 16).split(':').join(''))
+                                    < parseInt(b.startDate.slice(11, 16).split(':').join('')))
+                                ){return - 1}
+                            return 0
+                        }).map(event =>
                             <MyEvent locationInPanel="true"
                                      key={`${event._id}panel`}
                                      exactEvent={event}

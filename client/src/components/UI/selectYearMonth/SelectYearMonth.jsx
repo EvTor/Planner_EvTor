@@ -1,31 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import classes from "./SelectYearMonth.module.css"
 import BigButton from "../button/BigButton";
 
-const SelectYearMonth = ({ specYearMonth, dayEventsDetails }) => {
-
+const SelectYearMonth = ({specYearMonth, dayEventsDetails}) => {
 
 
     const currentYear = new Date().getFullYear();
     const fifteenYears = [];
     for (let i = 0; i < 15; i++) {
         fifteenYears.push(currentYear + i);
-    };
+    }
+    ;
 
     const currentMonth = new Date().getMonth();
     const monthNames = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
     ];
 
-    const initialYear = ()=>{
-        if(dayEventsDetails)
-        {return parseInt(dayEventsDetails.dayId.slice(0,4))}
-        else{return currentYear}
+    const initialYear = () => {
+        if (dayEventsDetails) {
+            return parseInt(dayEventsDetails.dayId.slice(0, 4))
+        } else {
+            return currentYear
+        }
     };
-    const initialMonth =()=>{
-        if(dayEventsDetails)
-        {return monthNames[parseInt(dayEventsDetails.dayId.slice(5,7))-1]}
-        else{return monthNames[currentMonth]}
+    const initialMonth = () => {
+        if (dayEventsDetails) {
+            return monthNames[parseInt(dayEventsDetails.dayId.slice(5, 7)) - 1]
+        }
+            return monthNames[currentMonth]
     };
 
     const [year, setYear] = useState(initialYear());
@@ -41,7 +44,8 @@ const SelectYearMonth = ({ specYearMonth, dayEventsDetails }) => {
         } else {
             setYear(year - 1);
             setMonth(monthNames[11])
-        };
+        }
+        ;
     };
 
     const next = () => {
@@ -51,7 +55,8 @@ const SelectYearMonth = ({ specYearMonth, dayEventsDetails }) => {
         } else {
             setYear(year + 1);
             setMonth(monthNames[0])
-        };
+        }
+        ;
     };
 
     return (
@@ -89,7 +94,7 @@ const SelectYearMonth = ({ specYearMonth, dayEventsDetails }) => {
                 children="Next >"
                 color="blue"
                 sizeChange={true}
-                onClick={next} />
+                onClick={next}/>
         </div>
     )
 };

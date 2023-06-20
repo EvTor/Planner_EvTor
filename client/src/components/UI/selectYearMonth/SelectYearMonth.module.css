@@ -17,6 +17,8 @@
     text-overflow: '';
     appearance: none;
     cursor: pointer;
+    background: white;
+    margin: auto;
 }
 .yearMonthSelects{
     display: flex;
