@@ -1,6 +1,7 @@
 # Planner_EvTor
 
 The full stack project (MERN) - PlannerEvTor
+
 This is a web application for planning events and sharing with other participants.
 
 Link to this web app on heroku: plannerevtor.herokuapp.com
