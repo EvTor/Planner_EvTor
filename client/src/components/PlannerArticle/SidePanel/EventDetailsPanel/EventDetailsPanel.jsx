@@ -4,6 +4,7 @@ import MyEvent from "../../../UI/event/MyEvent";
 import Service from "../../../../service/service";
 import SmallButton from "../../../UI/button/SmallButton";
 import EventService from "../../../../API/EventService";
+import {API_URL} from "../../../../API/config";
 const EventDetailsPanel = ({ dayEventsDetails, users, setEventForm, setGroupForm, setModalActive, setInvitesForm, clickedEditEvent, invites, setInvites }) => {
     const[selectDayMessage, setSelectDayMessage] = useState(false);
     const createNewEventHandle=()=>{
@@ -15,13 +16,11 @@ const EventDetailsPanel = ({ dayEventsDetails, users, setEventForm, setGroupForm
             setSelectDayMessage(true);
         }
     };
-
     const showInvitesHandle = async ()=>{
         setInvites(await EventService.showNotAcceptedEvents());
         setInvitesForm(true);
         setModalActive(true)
     };
-
     useEffect(()=>{
         if(dayEventsDetails){setSelectDayMessage(false)}
     },[dayEventsDetails]);

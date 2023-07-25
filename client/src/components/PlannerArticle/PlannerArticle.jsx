@@ -10,6 +10,7 @@ import ModalWindow from "../UI/ModalWindow/ModalWindow";
 import GroupForm from "../GroupForm/GroupForm";
 import EventForm from "../EventForm/EventForm";
 import InvitesForm from "../InvitesForm/InvitesForm";
+
 const PlannerArticle = () => {
     const [isLoading, setIsLoading] = useState(false);
 
@@ -26,12 +27,13 @@ const PlannerArticle = () => {
 
     const clickedDay = (currentDayEvents) => {
         setDayEventsDetails(currentDayEvents);
+        scrollEvents()
     };
 
     const [sendEventForm, setSendEventForm] = useState(false);
     const [eventFormDecoration, setEventFormDecoration] = useState("initial");
     const [eventEdit, setEventEdit] = useState(false);
-    const clickedEditEvent=(event)=>{
+    const clickedEditEvent = (event) => {
         setEventEdit(event);
     };
     const updateEventList = async () => {
@@ -40,13 +42,13 @@ const PlannerArticle = () => {
         setIsLoading(false);
     };
     useEffect(() => {
-        if (eventFormDecoration === "success")
-        {
-            const timeOut = setTimeout(()=>{updateEventList()}, 1000);
+        if (eventFormDecoration === "success") {
+            const timeOut = setTimeout(() => {
+                updateEventList()
+            }, 1000);
             return () => clearTimeout(timeOut);
         }
     }, [eventFormDecoration]);
-
 
 
     const [groups, setGroups] = useState([]);
@@ -63,9 +65,10 @@ const PlannerArticle = () => {
         setIsLoading(false);
     };
     useEffect(() => {
-        if (groupFormDecoration === "success")
-        {
-            const timeOut = setTimeout(()=>{updateGroupList()}, 1000);
+        if (groupFormDecoration === "success") {
+            const timeOut = setTimeout(() => {
+                updateGroupList()
+            }, 1000);
             return () => clearTimeout(timeOut);
         }
     }, [groupFormDecoration]);
@@ -88,52 +91,53 @@ const PlannerArticle = () => {
     const [acceptedInvite, setAcceptedInvite] = useState(false);
     const [declinedInvite, setDeclinedInvite] = useState(false);
 
-    const clickedAcceptInvite = (exactEvent)=>{
+    const clickedAcceptInvite = (exactEvent) => {
         setAcceptedInvite(exactEvent);
     };
-    const clickedDeclineInvite =(exactEvent)=>{
+    const clickedDeclineInvite = (exactEvent) => {
         setDeclinedInvite(exactEvent);
     };
     const [successfullyAcceptedInvite, setSuccessfullyAcceptedInvite] = useState(false);
     const [successfullyDeclinedInvite, setSuccessfullyDeclinedInvite] = useState(false);
 
-    useEffect(()=>{
-        if(successfullyAcceptedInvite){
+    useEffect(() => {
+        if (successfullyAcceptedInvite) {
             updateInvitesList();
             updateEventList();
             setSuccessfullyAcceptedInvite(false);
         }
-    },[successfullyAcceptedInvite]);
+    }, [successfullyAcceptedInvite]);
 
-    useEffect(()=>{
-        if(successfullyDeclinedInvite){
+    useEffect(() => {
+        if (successfullyDeclinedInvite) {
             updateInvitesList();
             setSuccessfullyDeclinedInvite(false);
         }
-    },[successfullyDeclinedInvite]);
+    }, [successfullyDeclinedInvite]);
 
 
     const [modalActive, setModalActive] = useState(false);
 
 
-
-
     const ref = useRef(null);
     const [calendarHeight, setCalendarHeight] = useState(0);
-    useLayoutEffect(()=>{
+    useLayoutEffect(() => {
         setCalendarHeight(ref.current.clientHeight);
     }, []);
-
+    const refScroll = useRef(null);
+    const scrollEvents = ()=>{
+        refScroll.current?.scrollIntoView({behavior:"smooth"})
+    }
     return (
         <article className={classes.plannerArticle}>
             {isLoading
                 ?
                 <div className={classes.loading}>
-                    <Loader />
+                    <Loader/>
                 </div>
                 :
                 <>
-                    <SidePanel users={users}
+                    <SidePanel ref={refScroll} users={users}
                                groups={groups}
                                dayEventsDetails={dayEventsDetails}
                                setModalActive={setModalActive}
@@ -147,58 +151,59 @@ const PlannerArticle = () => {
                                setInvites={setInvites}
                     />
                     <div ref={ref}>
-                        <Calendar  events={events} clickedDay={clickedDay} dayEventsDetails={dayEventsDetails} eventFormDecoration={eventFormDecoration}/>
+                        <Calendar events={events} clickedDay={clickedDay} dayEventsDetails={dayEventsDetails}
+                                  eventFormDecoration={eventFormDecoration}/>
                     </div>
                 </>
             }
-                    <ModalWindow active={modalActive} setActive={setModalActive}>
-                        {groupForm
-                                ?<GroupForm
-                                modalActive={modalActive}
-                                setModalActive={setModalActive}
-                                setGroupForm={setGroupForm}
-                                users={users}
-                                sendGroupForm={sendGroupForm}
-                                setSendGroupForm={setSendGroupForm}
-                                groupFormDecoration={groupFormDecoration}
-                                setGroupFormDecoration={setGroupFormDecoration}
-                                groupEdit={groupEdit}
-                            />
-                            :null}
-                        {eventForm
-                                ?<EventForm
-                                modalActive={modalActive}
-                                setModalActive={setModalActive}
-                                setEventForm={setEventForm}
-                                users={users}
-                                groups={groups}
-                                sendEventForm={sendEventForm}
-                                setSendEventForm={setSendEventForm}
-                                eventFormDecoration={eventFormDecoration}
-                                setEventFormDecoration={setEventFormDecoration}
-                                eventEdit={eventEdit}
-                                setEventEdit={setEventEdit}
-                                dayEventsDetails={dayEventsDetails}
-                            />
-                            :null}
+            <ModalWindow active={modalActive} setActive={setModalActive}>
+                {groupForm
+                    ? <GroupForm
+                        modalActive={modalActive}
+                        setModalActive={setModalActive}
+                        setGroupForm={setGroupForm}
+                        users={users}
+                        sendGroupForm={sendGroupForm}
+                        setSendGroupForm={setSendGroupForm}
+                        groupFormDecoration={groupFormDecoration}
+                        setGroupFormDecoration={setGroupFormDecoration}
+                        groupEdit={groupEdit}
+                    />
+                    : null}
+                {eventForm
+                    ? <EventForm
+                        modalActive={modalActive}
+                        setModalActive={setModalActive}
+                        setEventForm={setEventForm}
+                        users={users}
+                        groups={groups}
+                        sendEventForm={sendEventForm}
+                        setSendEventForm={setSendEventForm}
+                        eventFormDecoration={eventFormDecoration}
+                        setEventFormDecoration={setEventFormDecoration}
+                        eventEdit={eventEdit}
+                        setEventEdit={setEventEdit}
+                        dayEventsDetails={dayEventsDetails}
+                    />
+                    : null}
 
-                        {invitesForm
-                                ?<InvitesForm
-                                modalActive={modalActive}
-                                setInvitesForm={setInvitesForm}
-                                invites={invites}
-                                users={users}
-                                acceptedInvite={acceptedInvite}
-                                setAcceptedInvite={setAcceptedInvite}
-                                declinedInvite={declinedInvite}
-                                setDeclinedInvite={setDeclinedInvite}
-                                clickedAcceptInvite={clickedAcceptInvite}
-                                clickedDeclineInvite={clickedDeclineInvite}
-                                setSuccessfullyAcceptedInvite={setSuccessfullyAcceptedInvite}
-                                setSuccessfullyDeclinedInvite={setSuccessfullyDeclinedInvite}
-                            />
-                        :null}
-                    </ModalWindow>
+                {invitesForm
+                    ? <InvitesForm
+                        modalActive={modalActive}
+                        setInvitesForm={setInvitesForm}
+                        invites={invites}
+                        users={users}
+                        acceptedInvite={acceptedInvite}
+                        setAcceptedInvite={setAcceptedInvite}
+                        declinedInvite={declinedInvite}
+                        setDeclinedInvite={setDeclinedInvite}
+                        clickedAcceptInvite={clickedAcceptInvite}
+                        clickedDeclineInvite={clickedDeclineInvite}
+                        setSuccessfullyAcceptedInvite={setSuccessfullyAcceptedInvite}
+                        setSuccessfullyDeclinedInvite={setSuccessfullyDeclinedInvite}
+                    />
+                    : null}
+            </ModalWindow>
 
         </article>
     )

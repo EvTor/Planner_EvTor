@@ -9,7 +9,7 @@ const groupSchema = new Schema({
                 ref: 'User',
                 required: true
             },
-            accepted: {
+            creator: {
                 type: Boolean,
                 required: true,
                 default: false

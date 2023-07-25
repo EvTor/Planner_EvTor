@@ -32,13 +32,13 @@ const InvitesForm = ({
         setLoadingRequest(true);
         eventService.acceptEvent(acceptedInvite._id)
             .then(data =>
-                {console.log(data.message);
+                {console.log(data);
                 setSuccessfullyAcceptedInvite(true);
                 setAcceptedInvite(false);
                 setLoadingRequest(false);
             })
             .catch(error =>
-                {console.log(error.message);
+                {console.log(error);
                 setSuccessfullyAcceptedInvite(false);
                 setAcceptedInvite(false);
                 setLoadingRequest(false);
@@ -64,12 +64,14 @@ const InvitesForm = ({
     useEffect(()=>{
         if(acceptedInvite){
             handleAcceptInviteInDB();
+            setAcceptedInvite(false);
         }
     },[acceptedInvite]);
 
     useEffect(()=>{
         if(declinedInvite){
             handleDeclineInviteInDB();
+            setDeclinedInvite(false);
         }
     },[declinedInvite]);
 

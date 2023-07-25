@@ -1,5 +1,4 @@
-import jwt from "jsonwebtoken";
-import { secret } from "../config.js";
+import tokenService from "../service/tokenService.js";
 
 const accessForRegistered = () => {
     return (req, res, next) => {
@@ -8,19 +7,21 @@ const accessForRegistered = () => {
         }
         try {
             //Token -> headers.authorization (without type - bearer)
-            const token = req.headers.authorization.split(' ')[1];
-            if (!token) {
-                console.log(err);
-                return res.status(403).json({ message: "User not logged in" })
+            const accessToken = req.headers.authorization.split(' ')[1];
+            if (!accessToken) {
+                return res.status(401).json({error: "User not logged in"});
             }
-            //Data with id and role of the user
-            const decodedTokenData = jwt.verify(token, secret.key);
-            req.user = decodedTokenData;
+            //Validate token
+            const userData = tokenService.validateAccessToken(accessToken);
+            if (!userData) {
+                return res.status(401).json({error: "User not logged in"});
+            }
+            req.user = userData;
             next();
         } catch (err) {
             console.log(err);
-            return res.status(403).json({ message: "User not logged in" })
+            return res.status(401).json({error: "User not logged in"})
         }
     };
 };
-export { accessForRegistered };
+export {accessForRegistered};

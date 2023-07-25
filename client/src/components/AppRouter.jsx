@@ -1,20 +1,22 @@
-import React, {useContext, useEffect, useState} from "react";
-
+import React, {useContext} from "react";
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Registration from "../pages/Registration";
 import Planner from "../pages/Planner";
 import Login from "../pages/Login"
 import ErrorPage from "../pages/ErrorPage";
-import {AuthContext} from "../context/context";
+import {UserContext} from "../context/context";
 import Loader from "./UI/Loader/Loader";
 import AboutApp from "../pages/AboutApp";
+import Invites from "../pages/Invites";
 
 const AppRouter = () => {
 
-const {isAuth, isLoading} = useContext(AuthContext);
+const {isAuth, isLoading} = useContext(UserContext);
 if(isLoading){
-    return (<Loader/>)
-};
+    return (<div className="basicLoader">
+        <Loader/>
+    </div>)
+}
     return (
         <BrowserRouter>
             {isAuth
@@ -22,6 +24,7 @@ if(isLoading){
                 <Routes>
                     <Route path="/" element={<Navigate to="/planner"/>} />
                     <Route path="/planner" element={<Planner />} />
+                    <Route path="/invites" element={<Invites />} />
                     <Route path="/error" element={<ErrorPage />} />
                     <Route path="aboutApp" element={<AboutApp/>}>
 

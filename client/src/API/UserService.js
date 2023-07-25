@@ -1,90 +1,105 @@
-
-import { fetchData } from "./fetchData";
+import {fetchData} from "./fetchData";
 
 class UserService {
-
     static registration = async (reqBody) => {
         const url = "/registration";
         const requestMethod = "POST";
-
-        const { message, user, errors } = await fetchData(url, requestMethod, reqBody);
-        if (!user) {
-            if (errors) {
-                throw new Error(`${message} because: ${errors.errors.map(error => error.msg)}`)
-            } else throw new Error(message)
+        try {
+            return await fetchData(url, requestMethod, reqBody);
+        } catch (err) {
+            console.log(err)
+            throw err
         }
-        else { return (`${message}, ${user.firstName} ${user.lastName}!`) };
     };
-
     static login = async (reqBody) => {
         const url = "/login";
         const requestMethod = "POST";
-        const { message, token, errors } = await fetchData(url, requestMethod, reqBody);
-        if (!token) {
-            if (errors) {
-                throw new Error(`${message} because: ${errors.errors.map(error => error.msg)}`)
-            } else throw new Error(message)
-        }
-        else {
-            localStorage.setItem("token_Planner_EvTor", `Bearer ${token}`);
-            return ("Successful login!")
+        try {
+            const {tokens, user} = await fetchData(url, requestMethod, reqBody);
+            localStorage.setItem("token_Planner_EvTor", `Bearer ${tokens.accessToken}`);
+            console.log({tokens, user});
+            return ({tokens, user})
+        } catch (err) {
+            console.log(err)
+            throw err
         }
     };
-
-    static logout = () => {
-        localStorage.removeItem("token_Planner_EvTor")
+    static logout = async () => {
+        const url = "/logout";
+        const requestMethod = "POST";
+        const reqBody = false;
+        const needAccess = true;
+        try {
+            const data = await fetchData(url, requestMethod, reqBody, needAccess);
+            localStorage.removeItem("token_Planner_EvTor");
+            return data;
+        } catch (err) {
+            console.log(err)
+            throw err
+        }
     };
-
-    static showUserData = async () => {
+    static showUserProfileData = async () => {
         const url = "/user/profile";
         const requestMethod = "GET";
         const reqBody = false;
         const needAccess = true;
-        const data = await fetchData(url, requestMethod, reqBody, needAccess);
-        if (data.message) {
-            throw new Error(data.message)
+        try {
+            return await fetchData(url, requestMethod, reqBody, needAccess);
+        } catch (err) {
+            console.log(err)
+            throw err
         }
-        return data;
     };
-
+    static showUserById = async (id) => {
+        const url = `/user/${id}`;
+        const requestMethod = "GET";
+        const reqBody = false;
+        const needAccess = true;
+        try {
+            return await fetchData(url, requestMethod, reqBody, needAccess);
+        } catch (err) {
+            console.log(err)
+            throw err
+        }
+    };
     static getUsersNames = async () => {
         const url = "/users/names";
         const requestMethod = "GET";
         const reqBody = false;
         const needAccess = true;
-        const data = await fetchData(url, requestMethod, reqBody, needAccess);
-        if (data.message) {
-            throw new Error(data.message)
+        try {
+            return await fetchData(url, requestMethod, reqBody, needAccess);
+        } catch (err) {
+            console.log(err)
+            throw err
         }
-        return data;
     };
-
-    static editProfile = async (reqBody) => {
-        const url = "/user/put";
+    static editProfile = async (id, reqBody) => {
+        const url = `/user/put/${id}`;
         const requestMethod = "PUT";
         const needAccess = true;
-        const { message, user, errors } = await fetchData(url, requestMethod, reqBody, needAccess);
-        if (!user) {
-            if (errors) {
-                throw new Error(`${message} because: ${errors.errors.map(error => error.msg)}`)
-            } else throw new Error(message)
+        try {
+            const {message, user} = await fetchData(url, requestMethod, reqBody, needAccess);
+            return (`${message}, ${user.firstName} ${user.lastName}!`);
+        } catch (err) {
+            console.log(err)
+            throw err
         }
-        else { return (`${message}, ${user.firstName} ${user.lastName}!`) };
     };
-
-    static deleteProfile = async () => {
-        const url = "/user/delete";
+    static deleteProfile = async (id) => {
+        const url = `/user/delete/${id}`;
         const requestMethod = "DELETE";
         const reqBody = false;
         const needAccess = true;
-        const { message, deleteUser } = await fetchData(url, requestMethod, reqBody, needAccess);
-        this.logout();
-        if (!deleteUser) {
-            throw new Error(message)
+        try {
+            const {message, user} = await fetchData(url, requestMethod, reqBody, needAccess);
+            await this.logout();
+            return {message, user};
+        } catch (err) {
+            console.log(err)
+            throw err
         }
-        return { message, deleteUser };
     }
-
 }
 
 export default UserService;

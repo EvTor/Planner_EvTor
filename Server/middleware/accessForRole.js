@@ -1,5 +1,4 @@
-import jwt from "jsonwebtoken";
-import { secret } from "../config.js";
+import tokenService from "../service/tokenService.js";
 
 const accessForRole = (roles) => {
     return (req, res, next) => {
@@ -8,27 +7,28 @@ const accessForRole = (roles) => {
         }
         try {
             //Token -> headers.authorization (without type - bearer)
-            const token = req.headers.authorization.split(' ')[1];
-            if (!token) {
-                console.log(err);
-                return res.status(403).json({ message: "User not logged in" })
+            const accessToken = req.headers.authorization.split(' ')[1];
+            if (!accessToken) {
+                return res.status(403).json({error: "User not logged in"});
             }
 
-            const { role: userRoles } = jwt.verify(token, secret.key);
+            //Validate token
+            const userData = tokenService.validateAccessToken(accessToken);
+            if (!userData) {
+                return res.status(403).json({error: "User not logged in"});
+            }
             let hasRole = false;
-            userRoles.forEach(role => {
-                if (roles.includes(role)) {
-                    hasRole = true;
-                }
-            });
+            if (roles.includes(userData.role)) {
+                hasRole = true;
+            }
             if (!hasRole) {
-                return res.status(403).json({ message: "You do not have an access" })
+                return res.status(403).json({error: "You do not have an access"})
             }
             next();
         } catch (err) {
             console.log(err);
-            return res.status(403).json({ message: "Access error" });
+            return res.status(403).json({error: "Access error"});
         }
     };
 };
-export { accessForRole };
+export {accessForRole};

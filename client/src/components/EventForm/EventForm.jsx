@@ -8,6 +8,8 @@ import FlashMessage from "../UI/FlashMessage/FlashMessage";
 import EventService from "../../API/EventService";
 import Service from "../../service/service";
 import Select from "../UI/input/Select";
+import InputColor from "../UI/input/InputColor";
+import mailService from "../../service/mailService";
 
 const EventForm = ({ users,
                        groups,
@@ -39,7 +41,7 @@ const EventForm = ({ users,
     const [endTime, setEndTime] = useState('');
     const [emptyEndTime, setEmptyEndTime] = useState(false);
     const [endDate, setEndDate] = useState('');
-    const [color, setColor] = useState('grey');
+    const [color, setColor] = useState('#808080');
 
 
     useEffect(() => {
@@ -148,7 +150,8 @@ const EventForm = ({ users,
 
         if (description.length >= 1 && startTime.length > 1 && endTime.length > 1
             && parseInt(startTime.split(':').join('')) < parseInt(endTime.split(':').join(''))) {
-            const listOfMembersId = listOfMembers.map(member => member.id)
+            const listOfMembersId = listOfMembers.map(member => member.id);
+            const listofMembersEmails = listOfMembers.map(member => member.email);
             const body = {
                 description,
                 user: listOfMembersId,
@@ -177,6 +180,7 @@ const EventForm = ({ users,
                 setEventFormDecoration("success");
                 setFlashMessageText(data);
                 setLoadingRequest(false);
+                //mailService.sendActivationMail(listofMembersEmails);
             })
                 .catch(error => {
                     console.log(error);
@@ -297,11 +301,7 @@ const EventForm = ({ users,
             />
             <div className={classes.eventColor}>
                 <div>Color of the event:</div>
-                <Select onChange={colorHandle} style={{ backgroundColor: color, color: color }}>
-                    {Service.cardColors().map((color, index) =>
-                        <option key={`${index}color`} value={color} style={{ backgroundColor: color, color: color }} children={color}></option>
-                    )}
-                </Select>
+                <InputColor type='color' value={color} onChange={colorHandle}/>
             </div>
             <div className={classes.groupsAndFriends}>
                 <h2>Share this event with:</h2>

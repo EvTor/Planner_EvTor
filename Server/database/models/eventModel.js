@@ -31,9 +31,8 @@ const eventSchema = new Schema({
     },
     color: {
         type: String,
-        ref: 'Color',
         required: true,
-        default: "grey"
+        default: "#808080"
     },
     dateAdded: {
         type: Date,

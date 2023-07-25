@@ -1,22 +1,4 @@
 class Service {
-
-    static cardColors = ()=>{
-        const colors = ["red", "orange", "yellow", "green", "blue", "pink", "purple", "brown", "grey"];
-        return colors
-    }
-
-    static backgroundColor = (exactEvent) => {
-        const datBaseColors = ["red", "orange", "yellow", "green", "blue", "pink", "purple", "brown", "grey"];
-        const clientColors = ["red", "orange", "yellow", "green", "blue", "pink", "purple", "brown", "grey"];
-        const bgColor = datBaseColors.filter((item, index) => {
-            if (exactEvent.color === item) {
-                return clientColors[index];
-            }
-        })
-        return bgColor[0];
-    };
-
-
     static dayFormatter = (date) => {
         const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
         ];

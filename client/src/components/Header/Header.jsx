@@ -1,29 +1,52 @@
 import React, {useContext} from "react";
-import classes from "./Header.module.css";
-import BigButton from "../UI/button/BigButton";
 import userService from "../../API/UserService";
 import {Link, useNavigate} from "react-router-dom";
-import {AuthContext} from "../../context/context";
-import MedButton from "../UI/button/MedButton";
-import NavBar from "../UI/NavBar/NavBar";
-
+import { UserContext} from "../../context/context";
+import Container from 'react-bootstrap/Container';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import Logo from "./img/Logo.png"
+import Button from 'react-bootstrap/Button';
 const Header = () => {
-    const {setIsAuth} = useContext(AuthContext);
+    const {userData, setIsAuth} = useContext(UserContext);
     const navigate = useNavigate();
-    const logoutHandle =()=>{
-        userService.logout();
+    const logoutHandle = async () => {
+        await userService.logout();
         setIsAuth(false);
         navigate("/");
     };
-    const aboutAppHandle =() =>{
-
-    }
     return (
         <header>
-            <div className={classes.navLogout}>
-                <NavBar/>
-                <BigButton children="LogOut" color="blue" onClick={logoutHandle} />
-            </div>
+            <Navbar collapseOnSelect expand="lg" bg="primary" data-bs-theme="dark">
+                <Container>
+                    <Link to="/planner">
+                    <Navbar.Brand >
+                        <img
+                            alt=""
+                            src={Logo}
+                            width="30"
+                            height="30"
+                            className="d-inline-block align-top"
+                        />
+                        <strong>Planner EvTor</strong>
+                    </Navbar.Brand>
+                </Link>
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                    <Navbar.Collapse id="responsive-navbar-nav">
+                    <Nav className="me-auto">
+                        <Link to="/aboutApp">About app</Link>
+                    </Nav>
+                        <Nav>
+                            <Navbar.Text>
+                                Signed in as: <strong class="me-2"> {userData.firstName} {userData.lastName}  </strong>
+                            </Navbar.Text>
+                                <Button variant="secondary" onClick={logoutHandle}>Logout</Button>
+                        </Nav>
+
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
+
         </header>)
 };
 

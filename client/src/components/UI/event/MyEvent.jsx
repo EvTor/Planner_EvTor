@@ -33,7 +33,7 @@ const MyEvent = ({ exactEvent,
         <>
             {locationInCard
                 ?
-                    <div className={classes.eventInCardDiv} style={{ backgroundColor: Service.backgroundColor(exactEvent) }}>
+                    <div className={classes.eventInCardDiv} style={{ backgroundColor: exactEvent.color }}>
                         <div className={classes.timeInCard}>
                             <div>{`${showTime(exactEvent.startDate)} ${showTime(exactEvent.endDate)}`}</div>
                         </div>
@@ -45,7 +45,7 @@ const MyEvent = ({ exactEvent,
             }
             {locationInPanel || locationInInvite
                 ?
-                    <div className={classes.eventInPanelDiv} style={{ backgroundColor: Service.backgroundColor(exactEvent) }}>
+                    <div className={classes.eventInPanelDiv} style={{ backgroundColor: exactEvent.color }}>
                         <div className={classes.descriptionInPanel}>
                             {exactEvent.description}
                         </div>

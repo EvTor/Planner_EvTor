@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, forwardRef } from "react";
 import classes from "./SidePanel.module.css";
 import EventDetailsPanel from "./EventDetailsPanel/EventDetailsPanel";
 import GroupDetailsPanel from "./GroupDetailPanel/GroupDetailsPanel";
-const SidePanel = ({ users, groups, dayEventsDetails, setModalActive, setGroupForm, clickedGroup, setEventForm, clickedEditEvent, invites, setInvitesForm, height, setInvites}) => {
+const SidePanel = ({ users, groups, dayEventsDetails, setModalActive, setGroupForm, clickedGroup, setEventForm, clickedEditEvent, invites, setInvitesForm, height, setInvites}, ref) => {
 
     return (
-        <div className={classes.sidePanelDiv} style={{height: height}}>
+        <div ref={ref} className={classes.sidePanelDiv} style={{height: height}}>
             <div className={classes.sidePanelFlex}>
 
             <GroupDetailsPanel groups={groups}
@@ -27,4 +27,4 @@ const SidePanel = ({ users, groups, dayEventsDetails, setModalActive, setGroupFo
         </div>
     )
 };
-export default SidePanel;
+export default forwardRef(SidePanel);

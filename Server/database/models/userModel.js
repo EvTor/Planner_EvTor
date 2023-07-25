@@ -1,14 +1,12 @@
 import mongoose from 'mongoose';
-
 const { Schema } = mongoose;
-
 const userSchema = new Schema(
     {
         email: {
             type: String,
             required: true,
             unique: true,
-            maxLength: 100
+            maxLength: 50
         },
         password: {
             type: String,
@@ -18,19 +16,26 @@ const userSchema = new Schema(
         firstName: {
             type: String,
             required: true,
-            maxLength: 100
+            maxLength: 25
         },
         lastName: {
             type: String,
             required: true,
-            maxLength: 100
+            maxLength: 25
         },
-        role: [{
+        role: {
             type: String,
             ref: 'Role',
             required: true
 
-        }],
+        },
+        isActivated:{
+            type:Boolean,
+            default:false
+        },
+        activationLink:{
+            type:String
+        },
         dateAdded: {
             type: Date,
             default: Date.now

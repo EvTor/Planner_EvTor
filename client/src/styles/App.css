@@ -6,6 +6,7 @@
     font-family: Montserrat;
     user-select: none;
 }
+
 *,
 *:before,
 *:after {
@@ -18,12 +19,14 @@
 :active {
     outline: none;
 }
+
 nav,
 footer,
 header,
 aside {
     display: block;
 }
+
 input::-ms-clear {
     display: none;
 }
@@ -45,15 +48,15 @@ a:visited {
 a:hover {
     text-decoration: none;
 }
-ul{
+
+ul {
     margin: 0;
 }
+
 ul li {
     list-style: none;
     margin: 0;
 }
-
-
 
 
 h1 {
@@ -100,10 +103,14 @@ input {
     outline: none
 }
 
+.basicLoader {
+    height: 100vh;
+    width: 100vw;
+}
 
 
 @font-face {
     font-family: "Montserrat";
     src: local("Montserrat-VariableFont_wght"),
-        url("./Fonts/Montserrat-VariableFont_wght.ttf") format("truetype");
+    url("./Fonts/Montserrat-VariableFont_wght.ttf") format("truetype");
 }

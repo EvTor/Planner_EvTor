@@ -7,7 +7,7 @@ import {Link, useNavigate} from "react-router-dom";
 import FlashMessage from "../UI/FlashMessage/FlashMessage";
 import Loader from "../UI/Loader/Loader";
 import MedButton from "../UI/button/MedButton";
-import {AuthContext} from "../../context/context";
+import {UserContext} from "../../context/context";
 
 
 const RegistrationLoginForm = ({ registration, login }) => {
@@ -31,7 +31,7 @@ const RegistrationLoginForm = ({ registration, login }) => {
 
     const navigate = useNavigate();
 
-    const {isAuth, setIsAuth} = useContext(AuthContext);
+    const {setIsAuth, userData, setUserData} = useContext(UserContext);
 
     const firstNameHandleChange =(e)=> {
         setFirstName(e.target.value);
@@ -91,7 +91,7 @@ const RegistrationLoginForm = ({ registration, login }) => {
             UserService.registration(body)
                 .then((data) => {
                     console.log(data);
-                    setFlashMessageText(data);
+                    setFlashMessageText(data.message);
                     setSendForm(true);
                     setFormDecoration("success");
                     setLoadingRequest(false);
@@ -99,7 +99,7 @@ const RegistrationLoginForm = ({ registration, login }) => {
                 })
                 .catch((error)=>{
                     console.log(error);
-                    setFlashMessageText(error.message);
+                    setFlashMessageText(error);
                     setSendForm(true);
                     setFormDecoration("fail");
                     setLoadingRequest(false);
@@ -113,13 +113,14 @@ const RegistrationLoginForm = ({ registration, login }) => {
             UserService.login(body)
                 .then((data) => {
                     console.log(data);
-                    setFlashMessageText(data);
+                    //setFlashMessageText(data.message);
                     setSendForm(true);
                     setFormDecoration("success");
+                    setUserData(data.user);
                     setLoadingRequest(false);})
                 .catch((error)=>{
                     console.log(error);
-                    setFlashMessageText(error.message);
+                    //setFlashMessageText(error);
                     setSendForm(true);
                     setFormDecoration("fail");
                     setLoadingRequest(false);

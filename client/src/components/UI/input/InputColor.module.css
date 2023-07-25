@@ -1,0 +1,16 @@
+.inputDiv{
+    width: 4rem;
+    height: 2rem;
+    cursor: pointer;
+    background: #e30000;
+    border-radius: 1rem;
+    overflow: hidden;
+
+}
+.myInput{
+    width: 4.2rem;
+    height: 2.2rem;
+    margin-left: -0.1rem ;
+    margin-top: -0.1rem ;
+
+}
