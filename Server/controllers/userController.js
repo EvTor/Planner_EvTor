@@ -125,7 +125,7 @@ class UserController {
                 //Generate jwt token and save refresh Token in DB
                 const tokens = tokenService.generateTokens(user._id, user.role, user.isActivated);
                 const refreshTokenDB = await tokenService.saveTokenToDB(user._id, tokens.refreshToken);
-                res.cookie('refreshToken', refreshTokenDB, {maxAge: 30 * 24 * 60 * 1000, httpOnly: true});
+                res.cookie('refreshToken', refreshTokenDB, {maxAge: 1000, httpOnly: true});
                 return res.json({tokens, user, message: "Successful login!"});
             } catch (err) {
                 console.log(err);
@@ -151,12 +151,11 @@ class UserController {
     refresh = [
         async (req, res) => {
             try {
-                const refresh = req.cookies.refreshToken;
-
-                const refreshToken = refresh.refreshToken;
-                if (!refreshToken) {
-                    res.status(401).json({error: 'User not logged in1'})
+                if(!req.cookies.refreshToken){
+                    throw 'User not logged in1'
                 }
+                const refresh = req.cookies.refreshToken;
+                const refreshToken = refresh.refreshToken;
                 const userData = tokenService.validateRefreshToken(refreshToken);
                 const tokenFromDB = await tokenService.findTokenInDb(refreshToken);
                 if (!userData || !tokenFromDB) {
@@ -170,7 +169,7 @@ class UserController {
                     user.role,
                     user.isActivated);
                 const refreshTokenDB = await tokenService.saveTokenToDB(user._id, tokens.refreshToken);
-                res.cookie('refreshToken', refreshTokenDB, {maxAge: 30 * 24 * 60 * 1000, httpOnly: true});
+                res.cookie('refreshToken', refreshTokenDB, {maxAge: 1000, httpOnly: true});
                 return res.json({
                     "tokens": tokens,
                     user: {_id: user._id, role: user.role, isActivated: user.isActivated}

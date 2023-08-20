@@ -84,7 +84,7 @@ const RegistrationLoginForm = ({ registration, login }) => {
             const body = {
                 firstName,
                 lastName,
-                email,
+                email: email.toLowerCase(),
                 password
             }
 
@@ -107,7 +107,7 @@ const RegistrationLoginForm = ({ registration, login }) => {
         };
         if (login && email.length >= 3 && password.length >= 3) {
             const body = {
-                email,
+                email: email.toLowerCase(),
                 password
             }
             UserService.login(body)
